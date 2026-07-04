@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-
-const keywords = ["CINEMA", "EVENTOS", "CONTEÚDO", "MARKETING"];
+import { useTranslation } from "@/i18n/I18nProvider";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentKeyword, setCurrentKeyword] = useState(0);
+  const { t, tArray } = useTranslation();
+  const keywords = tArray("hero.keywords") as string[];
 
   useEffect(() => {
     if (videoRef.current) {
@@ -21,11 +22,10 @@ export default function Hero() {
       setCurrentKeyword((prev) => (prev + 1) % keywords.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [keywords.length]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-[#0A0A0A]">
-      {/* Video Background */}
       <video
         ref={videoRef}
         autoPlay
@@ -41,13 +41,9 @@ export default function Hero() {
         />
       </video>
 
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50" />
-
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 video-overlay" />
 
-      {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -55,26 +51,23 @@ export default function Hero() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-center"
         >
-          {/* Kicker */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-6"
           >
-            STUDIO DE PRODUÇÃO
+            {t("hero.kicker")}
           </motion.p>
 
-          {/* Main Headline */}
           <h1 className="font-[family-name:var(--font-inter)] text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-8 leading-[0.9]">
-            TRANSFORMAMOS
+            {t("hero.line1")}
             <br />
-            IDEIAS EM
+            {t("hero.line2")}
             <br />
-            EXPERIÊNCIAS
+            {t("hero.line3")}
           </h1>
 
-          {/* Rotating Keywords */}
           <div className="h-8 flex items-center justify-center overflow-hidden">
             <motion.span
               key={currentKeyword}
@@ -89,7 +82,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

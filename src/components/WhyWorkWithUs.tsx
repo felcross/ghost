@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslation } from "@/i18n/I18nProvider";
 
 export default function WhyWorkWithUs() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 lg:py-32 bg-[#F5F2ED]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Photo Collage */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -40,7 +42,6 @@ export default function WhyWorkWithUs() {
             </div>
           </motion.div>
 
-          {/* Text Side */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -48,13 +49,12 @@ export default function WhyWorkWithUs() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-6">
-              ● Why Work With Us
+              {t("whyWorkWithUs.kicker")}
             </p>
             <h2 className="font-[family-name:var(--font-inter)] text-3xl lg:text-4xl font-black tracking-tight text-[#111111] mb-8 leading-tight">
-              NÃO APENAS PRODUZIMOS — CRIAMOS EXPERIÊNCIAS QUE CONECTAM MARCAS A PESSOAS.
+              {t("whyWorkWithUs.title")}
             </h2>
 
-            {/* Chat Mockup */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/5">
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-10 h-10 rounded-full bg-[#FF4D1C] flex items-center justify-center">
@@ -62,14 +62,14 @@ export default function WhyWorkWithUs() {
                 </div>
                 <div className="bg-[#F5F2ED] rounded-2xl rounded-tl-none px-4 py-3">
                   <p className="text-[#111111] text-sm">
-                    Podemos transformar sua ideias em uma experiência memorável?
+                    {t("whyWorkWithUs.chat1")}
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4 justify-end">
                 <div className="bg-[#0A0A0A] rounded-2xl rounded-tr-none px-4 py-3">
                   <p className="text-white text-sm">
-                    Com certeza! Vamos conversar?
+                    {t("whyWorkWithUs.chat2")}
                   </p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-[#111111]/10 flex items-center justify-center">

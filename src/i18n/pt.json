@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "Ghost Studio | Produção & Criação",
+    "description": "Estúdio de produção e criação. Transformamos ideias em experiências."
+  },
+  "nav": {
+    "work": "WORK",
+    "services": "SERVICES",
+    "about": "ABOUT",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "kicker": "STUDIO DE PRODUÇÃO",
+    "line1": "TRANSFORMAMOS",
+    "line2": "IDEIAS EM",
+    "line3": "EXPERIÊNCIAS",
+    "keywords": ["CINEMA", "EVENTOS", "CONTEÚDO", "MARKETING"]
+  },
+  "trustedBy": "Trusted by",
+  "selectedWork": {
+    "kicker": "● Selected Work",
+    "title": "PROJETOS",
+    "projects": [
+      "Campanha Verão",
+      "Lançamento Collection",
+      "Fashion Week SP",
+      "Festival de Inverno",
+      "Showroom Prime",
+      "Campanha Black"
+    ]
+  },
+  "videoShowcase": {
+    "kicker": "NOSSO REEL",
+    "line1": "CADA PROJETO UMA",
+    "line2": "NOVA HISTÓRIA",
+    "cta": "Ver Projetos"
+  },
+  "brazilShowcase": {
+    "kicker": "PRODUÇÃO NO BRASIL",
+    "line1": "OBRA-PRIMA",
+    "line2": "COMEÇA AQUI",
+    "description": "Locais de classe mundial, talentos lendários e histórias que só o Brasil pode contar. Das ruas de Rio à floresta amazônica — damos vida à sua visão.",
+    "cta": "COMEÇAR SEU PROJETO"
+  },
+  "whyWorkWithUs": {
+    "kicker": "● Por Que Nos Escolher",
+    "title": "NÃO APENAS PRODUZIMOS — CRIAMOS EXPERIÊNCIAS QUE CONECTAM MARCAS A PESSOAS.",
+    "chat1": "Podemos transformar suas ideias em uma experiência memorável?",
+    "chat2": "Com certeza! Vamos conversar?"
+  },
+  "services": {
+    "kicker": "● Services",
+    "title": "O QUE FAZEMOS",
+    "items": [
+      {
+        "title": "PRODUÇÃO",
+        "tags": ["Cinema", "Eventos", "Conteúdo", "Audiovisual"],
+        "description": "Produção completa de eventos, conteúdo audiovisual e experiências imersivas."
+      },
+      {
+        "title": "CRIAÇÃO",
+        "tags": ["Roteiro", "Storytelling", "Conceito", "Identidade"],
+        "description": "Desenvolvimento de conceitos criativos e identidades visuais marcantes."
+      },
+      {
+        "title": "DIREÇÃO",
+        "tags": ["Artística", "Fotografia", "Vídeo", "Campanha"],
+        "description": "Direção artística e fotográfica para campanhas e projetos especiais."
+      },
+      {
+        "title": "PÓS-PRODUÇÃO",
+        "tags": ["Edição", "Color Grading", "VFX", "Motion"],
+        "description": "Edição, color grading e efeitos visuais para elevar o nível do seu projeto."
+      }
+    ]
+  },
+  "testimonials": {
+    "kicker": "● Testimonials",
+    "title": "O QUE DIZEM",
+    "items": [
+      {
+        "quote": "Excelente parceria. Resultado além das expectativas. Recomendo para qualquer marca que queira se destacar.",
+        "name": "Ana Silva",
+        "role": "Diretora de Marketing, Renner"
+      },
+      {
+        "quote": "Criatividade e profissionalismo em cada detalhe. Transformaram nossa visão em realidade.",
+        "name": "Carlos Santos",
+        "role": "CEO, Filá"
+      },
+      {
+        "quote": "Superaram todas as expectativas. O resultado foi incrível e o processo foi muito profissional.",
+        "name": "Maria Costa",
+        "role": "Head de Eventos, Vogue"
+      }
+    ],
+    "stats": [
+      { "value": 150, "suffix": "+", "label": "Projetos" },
+      { "value": 50, "suffix": "+", "label": "Clientes" },
+      { "value": 10, "suffix": "+", "label": "Anos" }
+    ]
+  },
+  "faq": {
+    "kicker": "● FAQ",
+    "title": "PERGUNTAS FREQUENTES",
+    "items": [
+      {
+        "question": "Quanto tempo leva um projeto?",
+        "answer": "Depende da escopo e complexidade, mas entregamos a maioria dos projetos em 2 a 8 semanas."
+      },
+      {
+        "question": "Trabalham com qualquer orçamento?",
+        "answer": "Projetos a partir de R$ 5.000. Cada projeto é orçado de acordo com suas necessidades específicas."
+      },
+      {
+        "question": "Fazem projetos fora de SP?",
+        "answer": "Sim, trabalhamos em todo o Brasil. Podemos enviar nossa equipe para qualquer cidade."
+      },
+      {
+        "question": "Como funciona o processo?",
+        "answer": "Briefing → Conceito → Produção → Entrega. Mantemos você envolvido em cada etapa."
+      }
+    ]
+  },
+  "blog": {
+    "kicker": "● Blog",
+    "title": "CONTEÚDO",
+    "articles": [
+      "Tendências de Produção 2025",
+      "Como Criar Conteúdo Visual",
+      "Eventos: Do Conceito à Execução"
+    ]
+  },
+  "footer": {
+    "tagline1": "Estúdio de produção e criação.",
+    "tagline2": "Transformamos ideias em experiências.",
+    "links": "Links",
+    "social": "Social",
+    "newsletter": "Newsletter",
+    "newsletterText": "Receba novidades e conteúdos exclusivos.",
+    "emailPlaceholder": "Seu email",
+    "copyright": "Todos os direitos reservados."
+  }
+}

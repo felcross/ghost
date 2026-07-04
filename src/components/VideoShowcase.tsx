@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import { useTranslation } from "@/i18n/I18nProvider";
 
 const VIDEO_URL = "https://videos.pexels.com/video-files/8951964/8951964-uhd_2560_1440_24fps.mp4";
 const POSTER_URL = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1920&q=80";
@@ -11,6 +12,7 @@ export default function VideoShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -67,7 +69,7 @@ export default function VideoShowcase() {
           transition={{ duration: 0.8 }}
           className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4"
         >
-          NOSSO REEL
+          {t("videoShowcase.kicker")}
         </motion.p>
 
         <motion.h2
@@ -77,9 +79,9 @@ export default function VideoShowcase() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-[family-name:var(--font-inter)] text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-8 leading-tight"
         >
-          CADA PROJETO UMA
+          {t("videoShowcase.line1")}
           <br />
-          NOVA HISTÓRIA
+          {t("videoShowcase.line2")}
         </motion.h2>
 
         <motion.a
@@ -91,7 +93,7 @@ export default function VideoShowcase() {
           className="group inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-[#FF4D1C] hover:border-[#FF4D1C] transition-all duration-300"
         >
           <Play size={16} className="group-hover:scale-110 transition-transform" />
-          Ver Projetos
+          {t("videoShowcase.cta")}
         </motion.a>
       </div>
     </section>

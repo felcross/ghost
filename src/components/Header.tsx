@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "@/i18n/I18nProvider";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +20,10 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { label: "WORK", href: "#work" },
-    { label: "SERVICES", href: "#services" },
-    { label: "ABOUT", href: "#about" },
-    { label: "CONTACT", href: "#contact" },
+    { label: t("nav.work"), href: "#work" },
+    { label: t("nav.services"), href: "#services" },
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.contact"), href: "#contact" },
   ];
 
   return (
@@ -50,6 +53,7 @@ export default function Header() {
                   {item.label}
                 </a>
               ))}
+              <LanguageSwitcher />
             </nav>
 
             {/* Mobile Menu Button */}
@@ -91,6 +95,13 @@ export default function Header() {
                   {item.label}
                 </motion.a>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <LanguageSwitcher />
+              </motion.div>
             </nav>
           </motion.div>
         )}

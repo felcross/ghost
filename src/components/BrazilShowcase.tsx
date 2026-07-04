@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "@/i18n/I18nProvider";
 
 const VIDEO_URL = "https://videos.pexels.com/video-files/35933207/15244916_2560_1440_60fps.mp4";
 const POSTER_URL = "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80";
@@ -11,6 +12,7 @@ export default function BrazilShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -67,7 +69,7 @@ export default function BrazilShowcase() {
           transition={{ duration: 0.8 }}
           className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4"
         >
-          PRODUCTION IN BRAZIL
+          {t("brazilShowcase.kicker")}
         </motion.p>
 
         <motion.h2
@@ -77,9 +79,9 @@ export default function BrazilShowcase() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-[family-name:var(--font-inter)] text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-tight"
         >
-          YOUR NEXT MASTERPIECE
+          {t("brazilShowcase.line1")}
           <br />
-          BEGINS HERE
+          {t("brazilShowcase.line2")}
         </motion.h2>
 
         <motion.p
@@ -89,9 +91,7 @@ export default function BrazilShowcase() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-white/70 text-sm md:text-base leading-relaxed mb-10 max-w-2xl"
         >
-          World-class locations, legendary talent, and stories only Brazil can
-          tell. From the streets of Rio to the Amazon rainforest — we bring your
-          vision to life.
+          {t("brazilShowcase.description")}
         </motion.p>
 
         <motion.a
@@ -102,7 +102,7 @@ export default function BrazilShowcase() {
           href="#contact"
           className="group inline-flex items-center gap-3 bg-[#FF4D1C] text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-[#111111] transition-all duration-300"
         >
-          START YOUR PROJECT
+          {t("brazilShowcase.cta")}
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </motion.a>
       </div>

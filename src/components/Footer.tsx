@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { Camera, MessageCircle } from "lucide-react";
+import { useTranslation } from "@/i18n/I18nProvider";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +19,6 @@ export default function Footer() {
     <footer className="py-12 lg:py-16 bg-[#F5F2ED] border-t border-[#111111]/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Logo */}
           <div>
             <a href="#" className="inline-block mb-4">
               <span className="font-[family-name:var(--font-inter)] text-2xl font-black tracking-tight text-[#111111]">
@@ -25,16 +26,15 @@ export default function Footer() {
               </span>
             </a>
             <p className="text-[#111111]/50 text-sm leading-relaxed">
-              Estúdio de produção e criação.
+              {t("footer.tagline1")}
               <br />
-              Transformamos ideias em experiências.
+              {t("footer.tagline2")}
             </p>
           </div>
 
-          {/* Links */}
           <div>
             <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
-              Links
+              {t("footer.links")}
             </h4>
             <ul className="space-y-2">
               <li>
@@ -60,10 +60,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
           <div>
             <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
-              Social
+              {t("footer.social")}
             </h4>
             <div className="flex gap-4">
               <a
@@ -87,20 +86,19 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div>
             <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
-              Newsletter
+              {t("footer.newsletter")}
             </h4>
             <p className="text-[#111111]/50 text-sm mb-4">
-              Receba novidades e conteúdos exclusivos.
+              {t("footer.newsletterText")}
             </p>
             <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Seu email"
+                placeholder={t("footer.emailPlaceholder")}
                 required
                 className="flex-1 bg-transparent border border-[#111111]/20 px-4 py-2 text-[#111111] text-sm placeholder-[#111111]/30 focus:border-[#FF4D1C] focus:outline-none transition-colors"
               />
@@ -114,10 +112,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="pt-8 border-t border-[#111111]/10">
           <p className="text-[#111111]/30 text-xs text-center tracking-widest">
-            © {currentYear} GHOST STUDIO. Todos os direitos reservados.
+            © {currentYear} GHOST STUDIO. {t("footer.copyright")}
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/i18n/I18nProvider";
 
 const inter = Inter({
   weight: ["400", "700", "900"],
@@ -24,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${dmSans.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-[#F5F2ED] text-[#111111]">
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );

@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "Ghost Studio | Production & Creation",
+    "description": "Production and creation studio. We transform ideas into experiences."
+  },
+  "nav": {
+    "work": "WORK",
+    "services": "SERVICES",
+    "about": "ABOUT",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "kicker": "PRODUCTION STUDIO",
+    "line1": "WE TRANSFORM",
+    "line2": "IDEAS INTO",
+    "line3": "EXPERIENCES",
+    "keywords": ["CINEMA", "EVENTS", "CONTENT", "MARKETING"]
+  },
+  "trustedBy": "Trusted by",
+  "selectedWork": {
+    "kicker": "● Selected Work",
+    "title": "PROJECTS",
+    "projects": [
+      "Summer Campaign",
+      "Collection Launch",
+      "Fashion Week SP",
+      "Winter Festival",
+      "Prime Showroom",
+      "Black Campaign"
+    ]
+  },
+  "videoShowcase": {
+    "kicker": "OUR REEL",
+    "line1": "EVERY PROJECT",
+    "line2": "A NEW STORY",
+    "cta": "View Projects"
+  },
+  "brazilShowcase": {
+    "kicker": "PRODUCTION IN BRAZIL",
+    "line1": "YOUR NEXT MASTERPIECE",
+    "line2": "BEGINS HERE",
+    "description": "World-class locations, legendary talent, and stories only Brazil can tell. From the streets of Rio to the Amazon rainforest — we bring your vision to life.",
+    "cta": "START YOUR PROJECT"
+  },
+  "whyWorkWithUs": {
+    "kicker": "● Why Work With Us",
+    "title": "WE DON'T JUST PRODUCE — WE CREATE EXPERIENCES THAT CONNECT BRANDS TO PEOPLE.",
+    "chat1": "Can you turn our ideas into a memorable experience?",
+    "chat2": "Absolutely! Let's talk?"
+  },
+  "services": {
+    "kicker": "● Services",
+    "title": "WHAT WE DO",
+    "items": [
+      {
+        "title": "PRODUCTION",
+        "tags": ["Cinema", "Events", "Content", "Audiovisual"],
+        "description": "Complete production of events, audiovisual content, and immersive experiences."
+      },
+      {
+        "title": "CREATION",
+        "tags": ["Scriptwriting", "Storytelling", "Concept", "Identity"],
+        "description": "Development of creative concepts and striking visual identities."
+      },
+      {
+        "title": "DIRECTION",
+        "tags": ["Artistic", "Photography", "Video", "Campaign"],
+        "description": "Artistic and photographic direction for campaigns and special projects."
+      },
+      {
+        "title": "POST-PRODUCTION",
+        "tags": ["Editing", "Color Grading", "VFX", "Motion"],
+        "description": "Editing, color grading, and visual effects to elevate your project."
+      }
+    ]
+  },
+  "testimonials": {
+    "kicker": "● Testimonials",
+    "title": "WHAT THEY SAY",
+    "items": [
+      {
+        "quote": "Excellent partnership. Results beyond expectations. I recommend it for any brand that wants to stand out.",
+        "name": "Ana Silva",
+        "role": "Marketing Director, Renner"
+      },
+      {
+        "quote": "Creativity and professionalism in every detail. They turned our vision into reality.",
+        "name": "Carlos Santos",
+        "role": "CEO, Filá"
+      },
+      {
+        "quote": "They exceeded all expectations. The result was incredible and the process was very professional.",
+        "name": "Maria Costa",
+        "role": "Events Head, Vogue"
+      }
+    ],
+    "stats": [
+      { "value": 150, "suffix": "+", "label": "Projects" },
+      { "value": 50, "suffix": "+", "label": "Clients" },
+      { "value": 10, "suffix": "+", "label": "Years" }
+    ]
+  },
+  "faq": {
+    "kicker": "● FAQ",
+    "title": "FREQUENTLY ASKED",
+    "items": [
+      {
+        "question": "How long does a project take?",
+        "answer": "It depends on scope and complexity, but we deliver most projects in 2 to 8 weeks."
+      },
+      {
+        "question": "Do you work with any budget?",
+        "answer": "Projects starting at R$ 5,000. Each project is quoted according to your specific needs."
+      },
+      {
+        "question": "Do you work outside of São Paulo?",
+        "answer": "Yes, we work across Brazil. We can send our team to any city."
+      },
+      {
+        "question": "How does the process work?",
+        "answer": "Briefing → Concept → Production → Delivery. We keep you involved at every stage."
+      }
+    ]
+  },
+  "blog": {
+    "kicker": "● Blog",
+    "title": "CONTENT",
+    "articles": [
+      "Production Trends 2025",
+      "How to Create Visual Content",
+      "Events: From Concept to Execution"
+    ]
+  },
+  "footer": {
+    "tagline1": "Production and creation studio.",
+    "tagline2": "We transform ideas into experiences.",
+    "links": "Links",
+    "social": "Social",
+    "newsletter": "Newsletter",
+    "newsletterText": "Receive news and exclusive content.",
+    "emailPlaceholder": "Your email",
+    "copyright": "All rights reserved."
+  }
+}
