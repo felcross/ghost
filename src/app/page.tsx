@@ -5,7 +5,7 @@ import Hero from "@/components/Hero";
 const VideoShowcase = dynamic(() => import("@/components/VideoShowcase"));
 const BrazilShowcase = dynamic(() => import("@/components/BrazilShowcase"));
 const TrustedBy = dynamic(() => import("@/components/TrustedBy"));
-const SelectedWork = dynamic(() => import("@/components/SelectedWork"));
+const SelectedWork = dynamic(() => import("@/components/SelectedWorkV2"));
 const WhyWorkWithUs = dynamic(() => import("@/components/WhyWorkWithUs"));
 const Services = dynamic(() => import("@/components/Services"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));

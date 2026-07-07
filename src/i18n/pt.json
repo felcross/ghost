@@ -29,6 +29,16 @@
       "Campanha Black"
     ]
   },
+  "selectedWorkV2": {
+    "kicker": "● Selected Work",
+    "title": "PROJETOS",
+    "viewProject": "Ver projeto",
+    "categories": {
+      "Brand Film": "Brand Film",
+      "Content": "Conteúdo",
+      "Event Production": "Produção de Eventos"
+    }
+  },
   "videoShowcase": {
     "kicker": "NOSSO REEL",
     "line1": "CADA PROJETO UMA",
@@ -130,6 +140,26 @@
       "Como Criar Conteúdo Visual",
       "Eventos: Do Conceito à Execução"
     ]
+  },
+  "blogV2": {
+    "kicker": "● Blog",
+    "title": "INSIGHTS",
+    "allLabel": "Todos",
+    "readingTime": "{{min}} min de leitura",
+    "viewPost": "Leia mais",
+    "pillars": {
+      "locations": "Locais",
+      "logistics": "Logística",
+      "culture": "Cultura",
+      "guides": "Guias"
+    }
+  },
+  "blogArticle": {
+    "share": "Compartilhar",
+    "relatedPosts": "Artigos relacionados",
+    "backToBlog": "Voltar ao blog",
+    "ctaTitle": "Pronto para começar seu projeto?",
+    "ctaButton": "Fale conosco"
   },
   "footer": {
     "tagline1": "Estúdio de produção e criação.",

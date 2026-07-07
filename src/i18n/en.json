@@ -29,6 +29,16 @@
       "Black Campaign"
     ]
   },
+  "selectedWorkV2": {
+    "kicker": "● Selected Work",
+    "title": "PROJECTS",
+    "viewProject": "View project",
+    "categories": {
+      "Brand Film": "Brand Film",
+      "Content": "Content",
+      "Event Production": "Event Production"
+    }
+  },
   "videoShowcase": {
     "kicker": "OUR REEL",
     "line1": "EVERY PROJECT",
@@ -130,6 +140,26 @@
       "How to Create Visual Content",
       "Events: From Concept to Execution"
     ]
+  },
+  "blogV2": {
+    "kicker": "● Blog",
+    "title": "INSIGHTS",
+    "allLabel": "All",
+    "readingTime": "{{min}} min read",
+    "viewPost": "Read more",
+    "pillars": {
+      "locations": "Locations",
+      "logistics": "Logistics",
+      "culture": "Culture",
+      "guides": "Guides"
+    }
+  },
+  "blogArticle": {
+    "share": "Share",
+    "relatedPosts": "Related articles",
+    "backToBlog": "Back to blog",
+    "ctaTitle": "Ready to start your project?",
+    "ctaButton": "Get in touch"
   },
   "footer": {
     "tagline1": "Production and creation studio.",

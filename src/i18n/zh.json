@@ -29,6 +29,16 @@
       "黑色星期五活动"
     ]
   },
+  "selectedWorkV2": {
+    "kicker": "● 精选作品",
+    "title": "项目案例",
+    "viewProject": "查看项目",
+    "categories": {
+      "Brand Film": "品牌影片",
+      "Content": "内容制作",
+      "Event Production": "活动制作"
+    }
+  },
   "videoShowcase": {
     "kicker": "我们的作品集",
     "line1": "每一个项目",
@@ -130,6 +140,26 @@
       "如何创建视觉内容",
       "活动：从概念到执行"
     ]
+  },
+  "blogV2": {
+    "kicker": "● 博客",
+    "title": "洞察",
+    "allLabel": "全部",
+    "readingTime": "{{min}} 分钟阅读",
+    "viewPost": "阅读更多",
+    "pillars": {
+      "locations": "拍摄地点",
+      "logistics": "物流",
+      "culture": "文化",
+      "guides": "指南"
+    }
+  },
+  "blogArticle": {
+    "share": "分享",
+    "relatedPosts": "相关文章",
+    "backToBlog": "返回博客",
+    "ctaTitle": "准备好开始您的项目了吗？",
+    "ctaButton": "联系我们"
   },
   "footer": {
     "tagline1": "制作与创作工作室。",

@@ -5,14 +5,6 @@ export const servicesImages = [
   "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
 ];
 
-export const blogImages = [
-  "https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=600&q=80",
-  "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80",
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
-];
-
-export const blogDates = ["15 Jan 2025", "22 Feb 2025", "10 Mar 2025"];
-
 export const testimonialAvatars = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
@@ -58,4 +50,81 @@ export const trustedByLogos = [
   "ADIDAS",
   "ZARA",
   "H&M",
+];
+
+// --- SelectedWork V2 data model ---
+
+export interface PortfolioItem {
+  id: string;
+  index: string;
+  client: string;
+  title: string;
+  category: string;
+  year?: string;
+  thumbnailUrl: string;
+  previewVideoUrl?: string;
+  href: string;
+}
+
+export const portfolioItems: PortfolioItem[] = [
+  {
+    id: "1",
+    index: "01",
+    client: "Renner",
+    title: "Campanha Verão 2024",
+    category: "Brand Film",
+    year: "2024",
+    thumbnailUrl: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80",
+    href: "#",
+  },
+  {
+    id: "2",
+    index: "02",
+    client: "Filá",
+    title: "Lançamento Collection",
+    category: "Content",
+    year: "2024",
+    thumbnailUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80",
+    href: "#",
+  },
+  {
+    id: "3",
+    index: "03",
+    client: "Vogue",
+    title: "Fashion Week SP",
+    category: "Event Production",
+    year: "2024",
+    thumbnailUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80",
+    href: "#",
+  },
+  {
+    id: "4",
+    index: "04",
+    client: "Chili Beans",
+    title: "Festival de Inverno",
+    category: "Event Production",
+    year: "2023",
+    thumbnailUrl: "https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80",
+    href: "#",
+  },
+  {
+    id: "5",
+    index: "05",
+    client: "Ashua",
+    title: "Showroom Prime",
+    category: "Brand Film",
+    year: "2023",
+    thumbnailUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80",
+    href: "#",
+  },
+  {
+    id: "6",
+    index: "06",
+    client: "Avatim",
+    title: "Campanha Black",
+    category: "Content",
+    year: "2023",
+    thumbnailUrl: "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=400&q=80",
+    href: "#",
+  },
 ];
