@@ -16,16 +16,16 @@ export default function Footer() {
   };
 
   return (
-    <footer className="py-12 lg:py-16 bg-[#F5F2ED] border-t border-[#111111]/10">
+    <footer className="py-12 lg:py-16 bg-light-bg border-t border-border-light">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <a href="#" className="inline-block mb-4">
-              <span className="font-[family-name:var(--font-inter)] text-2xl font-black tracking-tight text-[#111111]">
+              <span className="font-[family-name:var(--font-inter)] text-2xl font-black tracking-tight text-text-on-light">
                 GHOST STUDIO
               </span>
             </a>
-            <p className="text-[#111111]/50 text-sm leading-relaxed">
+            <p className="text-text-on-light-muted text-sm leading-relaxed">
               {t("footer.tagline1")}
               <br />
               {t("footer.tagline2")}
@@ -33,35 +33,35 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
+            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-text-on-light mb-4 tracking-widest uppercase">
               {t("footer.links")}
             </h4>
             <ul className="space-y-2">
               <li>
-                <a href="#work" className="text-[#111111]/50 text-sm hover:text-[#111111] transition-colors">
-                  Work
+                <a href="#work" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                  {t("footer.work")}
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[#111111]/50 text-sm hover:text-[#111111] transition-colors">
-                  Services
+                <a href="#services" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                  {t("footer.services")}
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-[#111111]/50 text-sm hover:text-[#111111] transition-colors">
-                  About
+                <a href="#about" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                  {t("footer.about")}
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-[#111111]/50 text-sm hover:text-[#111111] transition-colors">
-                  Contact
+                <a href="#contact" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                  {t("footer.contact")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
+            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-text-on-light mb-4 tracking-widest uppercase">
               {t("footer.social")}
             </h4>
             <div className="flex gap-4">
@@ -69,28 +69,28 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#111111]/5 flex items-center justify-center hover:bg-[#FF4D1C] hover:text-white transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-overlay-light flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
                 aria-label="Instagram"
               >
-                <Camera size={18} className="text-[#111111]" />
+                <Camera size={18} className="text-text-on-light" />
               </a>
               <a
                 href="https://wa.me/5511999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#111111]/5 flex items-center justify-center hover:bg-[#FF4D1C] hover:text-white transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-overlay-light flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
                 aria-label="WhatsApp"
               >
-                <MessageCircle size={18} className="text-[#111111]" />
+                <MessageCircle size={18} className="text-text-on-light" />
               </a>
             </div>
           </div>
 
           <div>
-            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111] mb-4 tracking-widest uppercase">
+            <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-text-on-light mb-4 tracking-widest uppercase">
               {t("footer.newsletter")}
             </h4>
-            <p className="text-[#111111]/50 text-sm mb-4">
+            <p className="text-text-on-light-muted text-sm mb-4">
               {t("footer.newsletterText")}
             </p>
             <form onSubmit={handleSubmit} className="flex gap-2">
@@ -100,11 +100,11 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t("footer.emailPlaceholder")}
                 required
-                className="flex-1 bg-transparent border border-[#111111]/20 px-4 py-2 text-[#111111] text-sm placeholder-[#111111]/30 focus:border-[#FF4D1C] focus:outline-none transition-colors"
+                className="flex-1 bg-transparent border border-border-light px-4 py-2.5 text-text-on-light text-sm placeholder-text-on-light-subtle focus:border-accent focus:outline-none transition-colors"
               />
               <button
                 type="submit"
-                className="bg-[#111111] text-white px-4 py-2 text-sm font-bold hover:bg-[#FF4D1C] transition-colors"
+                className="bg-text-on-light text-white px-5 py-2.5 text-sm font-bold hover:bg-accent transition-colors"
               >
                 →
               </button>
@@ -112,8 +112,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-[#111111]/10">
-          <p className="text-[#111111]/30 text-xs text-center tracking-widest">
+        <div className="pt-8 border-t border-border-light">
+          <p className="text-text-on-light-subtle text-xs text-center tracking-widest">
             © {currentYear} GHOST STUDIO. {t("footer.copyright")}
           </p>
         </div>

@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useTranslation } from "@/i18n/I18nProvider";
-
-const VIDEO_URL = "https://videos.pexels.com/video-files/8951964/8951964-uhd_2560_1440_24fps.mp4";
-const POSTER_URL = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1920&q=80";
+import { videoUrls } from "@/config/images";
 
 export default function VideoShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -42,7 +40,7 @@ export default function VideoShowcase() {
     <section
       ref={sectionRef}
       id="showcase"
-      className="relative h-[70vh] w-full overflow-hidden bg-[#0A0A0A]"
+      className="relative h-[70dvh] w-full overflow-hidden bg-dark-bg"
     >
       {isVisible && (
         <video
@@ -53,13 +51,13 @@ export default function VideoShowcase() {
           playsInline
           preload="none"
           className="absolute inset-0 w-full h-full object-cover opacity-80"
-          poster={POSTER_URL}
+          poster={videoUrls.showcasePoster}
         >
-          <source src={VIDEO_URL} type="video/mp4" />
+          <source src={videoUrls.showcase} type="video/mp4" />
         </video>
       )}
 
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-overlay-medium" />
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
         <motion.p
@@ -67,7 +65,7 @@ export default function VideoShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4"
+          className="text-accent text-xs tracking-[0.3em] uppercase mb-4"
         >
           {t("videoShowcase.kicker")}
         </motion.p>
@@ -90,7 +88,7 @@ export default function VideoShowcase() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
           href="#work"
-          className="group inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-[#FF4D1C] hover:border-[#FF4D1C] transition-all duration-300"
+          className="group inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-accent hover:border-accent transition-all duration-300"
         >
           <Play size={16} className="group-hover:scale-110 transition-transform" />
           {t("videoShowcase.cta")}

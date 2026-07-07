@@ -17,10 +17,10 @@ export default function LanguageSwitcher() {
         <button
           key={lang.code}
           onClick={() => setLocale(lang.code)}
-          className={`px-2 py-1 text-[10px] tracking-[0.15em] uppercase transition-all duration-300 ${
+          className={`min-w-[44px] min-h-[44px] flex items-center justify-center px-3 py-2 text-[10px] tracking-[0.15em] uppercase transition-all duration-300 ${
             locale === lang.code
-              ? "bg-[#111111] text-white"
-              : "text-[#111111]/40 hover:text-[#111111]"
+              ? "bg-text-on-light text-white"
+              : "text-text-on-light-faint hover:text-text-on-light"
           }`}
           aria-label={`Switch to ${lang.label}`}
         >

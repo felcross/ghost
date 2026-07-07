@@ -6,12 +6,7 @@ import { Star } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { useTranslation } from "@/i18n/I18nProvider";
-
-const avatars = [
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
-];
+import { testimonialAvatars } from "@/config/images";
 
 interface Stat {
   value: number;
@@ -72,18 +67,18 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 function TestimonialCard({ testimonial, avatar }: { testimonial: { quote: string; name: string; role: string }; avatar: string }) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/5">
+    <div className="bg-white rounded-2xl p-6 shadow-lg border border-border-light">
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <Star
             key={i}
             size={16}
-            className="fill-[#FF4D1C] text-[#FF4D1C]"
+            className="fill-accent text-accent"
           />
         ))}
       </div>
 
-      <p className="text-[#111111] text-sm leading-relaxed mb-6">
+      <p className="text-text-on-light text-sm leading-relaxed mb-6">
         &ldquo;{testimonial.quote}&rdquo;
       </p>
 
@@ -91,13 +86,14 @@ function TestimonialCard({ testimonial, avatar }: { testimonial: { quote: string
         <img
           src={avatar}
           alt={testimonial.name}
+          loading="lazy"
           className="w-10 h-10 rounded-full object-cover"
         />
         <div>
-          <p className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#111111]">
+          <p className="font-[family-name:var(--font-inter)] text-sm font-bold text-text-on-light">
             {testimonial.name}
           </p>
-          <p className="text-[#111111]/50 text-xs">
+          <p className="text-text-on-light-muted text-xs">
             {testimonial.role}
           </p>
         </div>
@@ -116,13 +112,13 @@ export default function Testimonials() {
   const statsData = tArray("testimonials.stats") as Stat[];
 
   return (
-    <section className="py-20 lg:py-32 bg-[#F5F2ED]">
+    <section className="py-20 lg:py-32 bg-light-bg">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="mb-16">
-          <p className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4">
+          <p className="text-accent text-xs tracking-[0.3em] uppercase mb-4">
             {t("testimonials.kicker")}
           </p>
-          <h2 className="font-[family-name:var(--font-inter)] text-4xl lg:text-5xl font-black tracking-tight text-[#111111]">
+          <h2 className="font-[family-name:var(--font-inter)] text-4xl lg:text-5xl font-black tracking-tight text-text-on-light">
             {t("testimonials.title")}
           </h2>
         </div>
@@ -136,7 +132,7 @@ export default function Testimonials() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <TestimonialCard testimonial={testimonial} avatar={avatars[index]} />
+              <TestimonialCard testimonial={testimonial} avatar={testimonialAvatars[index]} />
             </motion.div>
           ))}
         </div>
@@ -150,7 +146,7 @@ export default function Testimonials() {
           >
             {testimonialsData.map((testimonial, index) => (
               <SwiperSlide key={index}>
-                <TestimonialCard testimonial={testimonial} avatar={avatars[index]} />
+              <TestimonialCard testimonial={testimonial} avatar={testimonialAvatars[index]} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -166,10 +162,10 @@ export default function Testimonials() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center"
             >
-              <p className="font-[family-name:var(--font-inter)] text-5xl lg:text-6xl font-black text-[#111111] mb-2">
+              <p className="font-[family-name:var(--font-inter)] text-5xl lg:text-6xl font-black text-text-on-light mb-2">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="text-[#111111]/50 text-sm tracking-widest uppercase">
+              <p className="text-text-on-light-muted text-sm tracking-widest uppercase">
                 {stat.label}
               </p>
             </motion.div>

@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/i18n/I18nProvider";
-
-const VIDEO_URL = "https://videos.pexels.com/video-files/35933207/15244916_2560_1440_60fps.mp4";
-const POSTER_URL = "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80";
+import { videoUrls } from "@/config/images";
 
 export default function BrazilShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -42,7 +40,7 @@ export default function BrazilShowcase() {
     <section
       ref={sectionRef}
       id="brazil"
-      className="relative h-[70vh] w-full overflow-hidden bg-[#0A0A0A]"
+      className="relative h-[70dvh] w-full overflow-hidden bg-dark-bg"
     >
       {isVisible && (
         <video
@@ -53,13 +51,13 @@ export default function BrazilShowcase() {
           playsInline
           preload="none"
           className="absolute inset-0 w-full h-full object-cover opacity-80"
-          poster={POSTER_URL}
+          poster={videoUrls.brazilPoster}
         >
-          <source src={VIDEO_URL} type="video/mp4" />
+          <source src={videoUrls.brazil} type="video/mp4" />
         </video>
       )}
 
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-overlay-medium" />
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
         <motion.p
@@ -67,7 +65,7 @@ export default function BrazilShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4"
+          className="text-accent text-xs tracking-[0.3em] uppercase mb-4"
         >
           {t("brazilShowcase.kicker")}
         </motion.p>
@@ -100,7 +98,7 @@ export default function BrazilShowcase() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
           href="#contact"
-          className="group inline-flex items-center gap-3 bg-[#FF4D1C] text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-[#111111] transition-all duration-300"
+          className="group inline-flex items-center gap-3 bg-accent text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-text-on-light transition-all duration-300"
         >
           {t("brazilShowcase.cta")}
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

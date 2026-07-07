@@ -9,9 +9,18 @@
   --color-dark-bg: #0A0A0A;
   --color-text-on-light: #111111;
   --color-text-on-dark: #FFFFFF;
-  --color-muted-dark: #9A9A9A;
+  --color-muted: #9A9A9A;
   --color-accent: #FF4D1C;
-  --color-tag-pill: #1C1C1C;
+  --color-surface-dark: #1C1C1C;
+  --color-border-light: rgba(17, 17, 17, 0.1);
+  --color-border-dark: rgba(255, 255, 255, 0.2);
+  --color-text-on-light-muted: rgba(17, 17, 17, 0.5);
+  --color-text-on-light-faint: rgba(17, 17, 17, 0.4);
+  --color-text-on-light-subtle: rgba(17, 17, 17, 0.3);
+  --color-text-on-light-ghost: rgba(17, 17, 17, 0.15);
+  --color-overlay-dark: rgba(0, 0, 0, 0.5);
+  --color-overlay-medium: rgba(0, 0, 0, 0.3);
+  --color-overlay-light: rgba(0, 0, 0, 0.1);
   --font-inter: var(--font-inter);
   --font-dm-sans: var(--font-dm-sans);
 }
@@ -21,8 +30,8 @@ html {
 }
 
 body {
-  background: #F5F2ED;
-  color: #111111;
+  background: var(--color-light-bg);
+  color: var(--color-text-on-light);
   font-family: var(--font-dm-sans), sans-serif;
   overflow-x: hidden;
 }
@@ -32,7 +41,7 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F2ED;
+  background: var(--color-light-bg);
 }
 ::-webkit-scrollbar-thumb {
   background: #ccc;
@@ -41,11 +50,11 @@ body {
 
 /* Swiper custom styles */
 .swiper-pagination-bullet {
-  background: #9A9A9A !important;
+  background: var(--color-muted) !important;
   opacity: 0.5;
 }
 .swiper-pagination-bullet-active {
-  background: #111111 !important;
+  background: var(--color-text-on-light) !important;
   opacity: 1;
 }
 
@@ -94,13 +103,4 @@ body {
   cursor: pointer;
 }
 
-/* FAQ Accordion */
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
 
-.faq-answer.open {
-  max-height: 200px;
-}

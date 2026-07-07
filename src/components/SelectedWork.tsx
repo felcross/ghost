@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/i18n/I18nProvider";
+import { portfolioImages, portfolioClients } from "@/config/images";
 
 interface Project {
   id: number;
@@ -10,17 +11,6 @@ interface Project {
   client: string;
   image: string;
 }
-
-const clients = ["Renner", "Filá", "Vogue", "Chili Beans", "Ashua", "Avatim"];
-
-const images = [
-  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80",
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
-  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
-  "https://images.unsplash.com/photo-1511497584788-876760111969?w=800&q=80",
-  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
-  "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=800&q=80",
-];
 
 export default function SelectedWork() {
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
@@ -38,8 +28,8 @@ export default function SelectedWork() {
   const projects: Project[] = projectTitles.map((title, i) => ({
     id: i + 1,
     title,
-    client: clients[i] || "",
-    image: images[i] || "",
+    client: portfolioClients[i] || "",
+    image: portfolioImages[i] || "",
   }));
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -56,13 +46,13 @@ export default function SelectedWork() {
   };
 
   return (
-    <section id="work" className="py-20 lg:py-32 bg-[#F5F2ED]">
+    <section id="work" className="py-20 lg:py-32 bg-light-bg">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="mb-16">
-          <p className="text-[#FF4D1C] text-xs tracking-[0.3em] uppercase mb-4">
+          <p className="text-accent text-xs tracking-[0.3em] uppercase mb-4">
             {t("selectedWork.kicker")}
           </p>
-          <h2 className="font-[family-name:var(--font-inter)] text-4xl lg:text-5xl font-black tracking-tight text-[#111111]">
+          <h2 className="font-[family-name:var(--font-inter)] text-4xl lg:text-5xl font-black tracking-tight text-text-on-light">
             {t("selectedWork.title")}
           </h2>
         </div>
@@ -75,21 +65,21 @@ export default function SelectedWork() {
           {projects.map((project, index) => (
             <div key={project.id}>
               <div
-                className="work-item border-b border-[#111111]/10 py-6 lg:py-8"
+                className="work-item border-b border-border-light py-6 lg:py-8"
                 onMouseEnter={() => !isTouchDevice && setHoveredProject(project)}
                 onMouseLeave={() => !isTouchDevice && setHoveredProject(null)}
                 onClick={() => handleTap(project)}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <span className="text-[#111111]/30 text-sm font-mono">
+                    <span className="text-text-on-light-subtle text-sm font-mono">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-[#111111]">
+                    <h3 className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light">
                       {project.title}
                     </h3>
                   </div>
-                  <span className="text-[#111111]/40 text-sm tracking-widest uppercase">
+                  <span className="text-text-on-light-faint text-sm tracking-widest uppercase">
                     {project.client}
                   </span>
                 </div>
@@ -107,6 +97,7 @@ export default function SelectedWork() {
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
                       className="w-full h-48 object-cover rounded-lg mt-2 mb-4"
                     />
                   </motion.div>

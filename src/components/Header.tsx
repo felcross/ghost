@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/i18n/I18nProvider";
@@ -9,6 +9,8 @@ import LanguageSwitcher from "./LanguageSwitcher";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -18,6 +20,54 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    triggerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMenu();
+        return;
+      }
+
+      if (e.key === "Tab" && menuRef.current) {
+        const focusableElements = menuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Focus first focusable element in menu
+    const firstFocusable = menuRef.current?.querySelector<HTMLElement>(
+      'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    );
+    firstFocusable?.focus();
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobileMenuOpen, closeMenu]);
 
   const navItems = [
     { label: t("nav.work"), href: "#work" },
@@ -30,14 +80,14 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-[#F5F2ED]/95 backdrop-blur-sm shadow-sm" : "bg-[#F5F2ED]"
+          isScrolled ? "bg-light-bg/95 backdrop-blur-sm shadow-sm" : "bg-light-bg"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a href="#" className="relative z-10">
-              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-[#111111]">
+              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light">
                 GHOST STUDIO
               </span>
             </a>
@@ -48,7 +98,7 @@ export default function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-xs tracking-[0.2em] text-[#111111]/60 hover:text-[#111111] transition-colors duration-300"
+                  className="text-xs tracking-[0.2em] text-text-on-light-muted hover:text-text-on-light transition-colors duration-300"
                 >
                   {item.label}
                 </a>
@@ -58,14 +108,17 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
+              ref={triggerRef}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden relative z-10 p-2"
-              aria-label="Menu"
+              className="md:hidden relative z-10 min-w-[44px] min-h-[44px] flex items-center justify-center p-2"
+              aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? (
-                <X size={24} className="text-[#111111]" />
+                <X size={24} className="text-text-on-light" />
               ) : (
-                <Menu size={24} className="text-[#111111]" />
+                <Menu size={24} className="text-text-on-light" />
               )}
             </button>
           </div>
@@ -76,10 +129,15 @@ export default function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            ref={menuRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navegação"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#F5F2ED] flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-light-bg flex flex-col items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
               {navItems.map((item, i) => (
@@ -89,8 +147,8 @@ export default function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-[family-name:var(--font-inter)] text-4xl font-black tracking-tight text-[#111111] hover:text-[#FF4D1C] transition-colors"
+                  onClick={closeMenu}
+                  className="font-[family-name:var(--font-inter)] text-4xl font-black tracking-tight text-text-on-light hover:text-accent transition-colors"
                 >
                   {item.label}
                 </motion.a>
