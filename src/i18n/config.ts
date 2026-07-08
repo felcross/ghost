@@ -6,7 +6,7 @@ export type Locale = "pt" | "en" | "zh";
 
 export const dictionaries: Record<Locale, typeof pt> = { pt, en, zh };
 
-export const defaultLocale: Locale = "pt";
+export const defaultLocale: Locale = "en";
 
 export function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   return path.split(".").reduce((current, key) => {

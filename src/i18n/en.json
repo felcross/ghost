@@ -7,10 +7,13 @@
     "work": "WORK",
     "services": "SERVICES",
     "about": "ABOUT",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "navLabel": "Navigation"
   },
   "hero": {
-    "kicker": "PRODUCTION STUDIO",
+    "kicker": "Production Company & Creative Studio",
     "line1": "WE TRANSFORM",
     "line2": "IDEAS INTO",
     "line3": "EXPERIENCES",
@@ -45,6 +48,10 @@
     "line2": "A NEW STORY",
     "cta": "View Projects"
   },
+  "showcase": {
+    "playVideo": "Play video",
+    "pauseVideo": "Pause video"
+  },
   "brazilShowcase": {
     "kicker": "PRODUCTION IN BRAZIL",
     "line1": "YOUR NEXT MASTERPIECE",
@@ -55,8 +62,7 @@
   "whyWorkWithUs": {
     "kicker": "● Why Work With Us",
     "title": "WE DON'T JUST PRODUCE — WE CREATE EXPERIENCES THAT CONNECT BRANDS TO PEOPLE.",
-    "chat1": "Can you turn our ideas into a memorable experience?",
-    "chat2": "Absolutely! Let's talk?"
+    "titleB": "Welcome to the Invisible Floor"
   },
   "services": {
     "kicker": "● Services",
@@ -174,5 +180,17 @@
     "newsletterText": "Receive news and exclusive content.",
     "emailPlaceholder": "Your email",
     "copyright": "All rights reserved."
+  },
+  "contact": {
+    "kicker": "● Contact",
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Message sent! We'll get back to you soon.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "Tell us about your project..."
   }
 }

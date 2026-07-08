@@ -17,6 +17,7 @@ export interface ShowcaseRow {
 }
 
 export const showcaseRows: ShowcaseRow[] = [
+  // Row 1: two_thirds + third
   {
     blocks: [
       {
@@ -27,7 +28,7 @@ export const showcaseRows: ShowcaseRow[] = [
         year: "2024",
         width: "two_thirds",
         poster: {
-          src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80",
+          src: "/data/mercedes-poster.jpg",
           alt: "Mercedes-Benz luxury vehicle in cinematic setting",
         },
         previewVideo: { mp4: "/data/mercedes.mp4" },
@@ -41,7 +42,7 @@ export const showcaseRows: ShowcaseRow[] = [
         year: "2024",
         width: "third",
         poster: {
-          src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80",
+          src: "/data/newbalance-poster.jpg",
           alt: "New Balance athletic sneakers close-up",
         },
         previewVideo: { mp4: "/data/newbalance.mp4" },
@@ -49,6 +50,7 @@ export const showcaseRows: ShowcaseRow[] = [
       },
     ],
   },
+  // Row 2: third + third + third
   {
     blocks: [
       {
@@ -57,12 +59,12 @@ export const showcaseRows: ShowcaseRow[] = [
         client: "Fila",
         category: "Event Production",
         year: "2024",
-        width: "half",
+        width: "third",
         poster: {
-          src: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200&q=80",
+          src: "/data/fila-poster.jpg",
           alt: "Fila sportswear collection display",
         },
-        previewVideo: { mp4: "/data/fila.mp4" },
+        previewVideo: { mp4: "/data/fila_new.mp4" },
         href: "#",
       },
       {
@@ -71,18 +73,14 @@ export const showcaseRows: ShowcaseRow[] = [
         client: "Original Penguin",
         category: "Brand Film",
         year: "2023",
-        width: "half",
+        width: "third",
         poster: {
-          src: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=1200&q=80",
+          src: "/data/originalpenguin-poster.jpg",
           alt: "Original Penguin casual polo fashion",
         },
         previewVideo: { mp4: "/data/originalpenguin.mp4" },
         href: "#",
       },
-    ],
-  },
-  {
-    blocks: [
       {
         id: "5",
         title: "Black Friday Campaign",
@@ -91,24 +89,62 @@ export const showcaseRows: ShowcaseRow[] = [
         year: "2023",
         width: "third",
         poster: {
-          src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80",
-          alt: "Renner fashion retail store interior",
+          src: "/data/renner-poster.jpg",
+          alt: "Renner fashion retail campaign",
         },
         previewVideo: { mp4: "/data/renner.mp4" },
         href: "#",
       },
+    ],
+  },
+  // Row 3: third + two_thirds
+  {
+    blocks: [
       {
         id: "6",
         title: "Music Festival",
         client: "LIVE!",
         category: "Event Production",
         year: "2024",
-        width: "two_thirds",
+        width: "third",
         poster: {
-          src: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200&q=80",
+          src: "/data/live-poster.jpg",
           alt: "LIVE! music festival concert production",
         },
         previewVideo: { mp4: "/data/live.mp4" },
+        href: "#",
+      },
+      {
+        id: "7",
+        title: "Brand Experience",
+        client: "Ferracini",
+        category: "Brand Film",
+        year: "2024",
+        width: "two_thirds",
+        poster: {
+          src: "/data/ferracini-poster.jpg",
+          alt: "Ferracini brand experience production",
+        },
+        previewVideo: { mp4: "/data/ferracini.mp4" },
+        href: "#",
+      },
+    ],
+  },
+  // Row 4: full (closing frame)
+  {
+    blocks: [
+      {
+        id: "8",
+        title: "Editorial Feature",
+        client: "Esquire",
+        category: "Content",
+        year: "2024",
+        width: "full",
+        poster: {
+          src: "/data/esquire-poster.jpg",
+          alt: "Esquire editorial content production",
+        },
+        previewVideo: { mp4: "/data/esquire.mp4" },
         href: "#",
       },
     ],

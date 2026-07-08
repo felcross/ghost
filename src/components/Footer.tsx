@@ -1,19 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { Camera, MessageCircle } from "lucide-react";
 import { useTranslation } from "@/i18n/I18nProvider";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Obrigado por se inscrever!");
-    setEmail("");
-  };
 
   return (
     <footer className="py-12 lg:py-16 bg-light-bg border-t border-border-light">
@@ -86,6 +78,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Newsletter — disabled per spec
           <div>
             <h4 className="font-[family-name:var(--font-inter)] text-sm font-bold text-text-on-light mb-4 tracking-widest uppercase">
               {t("footer.newsletter")}
@@ -110,6 +103,7 @@ export default function Footer() {
               </button>
             </form>
           </div>
+          */}
         </div>
 
         <div className="pt-8 border-t border-border-light">

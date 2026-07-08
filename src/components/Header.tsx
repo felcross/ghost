@@ -111,7 +111,7 @@ export default function Header() {
               ref={triggerRef}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden relative z-10 min-w-[44px] min-h-[44px] flex items-center justify-center p-2"
-              aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-label={isMobileMenuOpen ? t("nav.menuClose") : t("nav.menuOpen")}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
@@ -133,7 +133,7 @@ export default function Header() {
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu de navegação"
+            aria-label={t("nav.navLabel")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

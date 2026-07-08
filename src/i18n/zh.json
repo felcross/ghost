@@ -7,10 +7,13 @@
     "work": "作品",
     "services": "服务",
     "about": "关于",
-    "contact": "联系"
+    "contact": "联系",
+    "menuOpen": "打开菜单",
+    "menuClose": "关闭菜单",
+    "navLabel": "导航菜单"
   },
   "hero": {
-    "kicker": "制作工作室",
+    "kicker": "制作公司 & 创意工作室",
     "line1": "我们把",
     "line2": "创意转化为",
     "line3": "沉浸体验",
@@ -45,6 +48,10 @@
     "line2": "都是一个新故事",
     "cta": "查看项目"
   },
+  "showcase": {
+    "playVideo": "播放视频",
+    "pauseVideo": "暂停视频"
+  },
   "brazilShowcase": {
     "kicker": "巴西制作",
     "line1": "您的下一部杰作",
@@ -55,8 +62,7 @@
   "whyWorkWithUs": {
     "kicker": "● 为什么选择我们",
     "title": "我们不只是制作——我们创造连接品牌与人的体验。",
-    "chat1": "你们能把我们的创意变成难忘的体验吗？",
-    "chat2": "当然可以！我们聊聊？"
+    "titleB": "欢迎来到隐形舞台"
   },
   "services": {
     "kicker": "● 服务",
@@ -174,5 +180,17 @@
     "newsletterText": "接收新闻和独家内容。",
     "emailPlaceholder": "您的邮箱",
     "copyright": "版权所有。"
+  },
+  "contact": {
+    "kicker": "● 联系我们",
+    "title": "联系我们",
+    "name": "姓名",
+    "email": "电子邮件",
+    "message": "留言",
+    "submit": "发送消息",
+    "success": "消息已发送！我们会尽快回复您。",
+    "namePlaceholder": "您的姓名",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "请告诉我们您的项目..."
   }
 }

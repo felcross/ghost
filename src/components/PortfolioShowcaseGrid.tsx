@@ -7,9 +7,9 @@ import ShowcaseCard from "./ShowcaseCard";
 
 const widthClasses = {
   full: "w-full",
-  two_thirds: "w-[calc(66.666%-0.5rem)]",
-  half: "w-[calc(50%-0.5rem)]",
-  third: "w-[calc(33.333%-0.5rem)]",
+  two_thirds: "w-[66.6667%]",
+  half: "w-[50%]",
+  third: "w-[33.3333%]",
 };
 
 export default function PortfolioShowcaseGrid() {
@@ -27,29 +27,29 @@ export default function PortfolioShowcaseGrid() {
             {t("selectedWorkV2.title")}
           </h2>
         </div>
+      </div>
 
-        {/* Showcase grid — editorial flex rows */}
-        <div className="space-y-4">
-          {showcaseRows.map((row, rowIndex) => (
-            <motion.div
-              key={rowIndex}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: rowIndex * 0.1 }}
-              className="flex gap-4"
-            >
-              {row.blocks.map((block) => (
-                <div
-                  key={block.id}
-                  className={`${widthClasses[block.width]} shrink-0`}
-                >
-                  <ShowcaseCard block={block} />
-                </div>
-              ))}
-            </motion.div>
-          ))}
-        </div>
+      {/* Showcase grid — zero-gap, full-bleed, edge-to-edge */}
+      <div className="overflow-hidden">
+        {showcaseRows.map((row, rowIndex) => (
+          <motion.div
+            key={rowIndex}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: rowIndex * 0.1 }}
+            className="flex"
+          >
+            {row.blocks.map((block) => (
+              <div
+                key={block.id}
+                className={`${widthClasses[block.width]} shrink-0`}
+              >
+                <ShowcaseCard block={block} />
+              </div>
+            ))}
+          </motion.div>
+        ))}
       </div>
     </section>
   );

@@ -7,10 +7,13 @@
     "work": "WORK",
     "services": "SERVICES",
     "about": "ABOUT",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "menuOpen": "Abrir menu",
+    "menuClose": "Fechar menu",
+    "navLabel": "Menu de navegação"
   },
   "hero": {
-    "kicker": "STUDIO DE PRODUÇÃO",
+    "kicker": "Produtora & Estúdio Criativo",
     "line1": "TRANSFORMAMOS",
     "line2": "IDEIAS EM",
     "line3": "EXPERIÊNCIAS",
@@ -45,6 +48,10 @@
     "line2": "NOVA HISTÓRIA",
     "cta": "Ver Projetos"
   },
+  "showcase": {
+    "playVideo": "Reproduzir vídeo",
+    "pauseVideo": "Pausar vídeo"
+  },
   "brazilShowcase": {
     "kicker": "PRODUÇÃO NO BRASIL",
     "line1": "OBRA-PRIMA",
@@ -55,8 +62,7 @@
   "whyWorkWithUs": {
     "kicker": "● Por Que Nos Escolher",
     "title": "NÃO APENAS PRODUZIMOS — CRIAMOS EXPERIÊNCIAS QUE CONECTAM MARCAS A PESSOAS.",
-    "chat1": "Podemos transformar suas ideias em uma experiência memorável?",
-    "chat2": "Com certeza! Vamos conversar?"
+    "titleB": "Bem-vindo ao Piso Invisível"
   },
   "services": {
     "kicker": "● Services",
@@ -174,5 +180,17 @@
     "newsletterText": "Receba novidades e conteúdos exclusivos.",
     "emailPlaceholder": "Seu email",
     "copyright": "Todos os direitos reservados."
+  },
+  "contact": {
+    "kicker": "● Contato",
+    "title": "Fale Conosco",
+    "name": "Nome",
+    "email": "E-mail",
+    "message": "Mensagem",
+    "submit": "Enviar Mensagem",
+    "success": "Mensagem enviada! Entraremos em contato em breve.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "seu@email.com",
+    "messagePlaceholder": "Conte-nos sobre seu projeto..."
   }
 }

@@ -1,125 +1,203 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "@/i18n/I18nProvider";
-import { videoUrls } from "@/config/images";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentKeyword, setCurrentKeyword] = useState(0);
-  const { t, tArray } = useTranslation();
-  const keywords = tArray("hero.keywords") as string[];
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const kickerRef = useRef<HTMLParagraphElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const wipeRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+
+  const [useVideo, setUseVideo] = useState(true);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const saveData = "connection" in navigator && (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+    const isLowEnd =
+      navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
+    if (prefersReducedMotion || saveData || isLowEnd) {
+      setUseVideo(false);
+    }
   }, []);
 
   useEffect(() => {
-    if (isVisible && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, [isVisible]);
+    const section = sectionRef.current;
+    const media = mediaRef.current;
+    const kicker = kickerRef.current;
+    const headline = headlineRef.current;
+    const wipe = wipeRef.current;
+    if (!section || !media || !kicker || !headline || !wipe) return;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentKeyword((prev) => (prev + 1) % keywords.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [keywords.length]);
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(kicker, { opacity: 1, y: 0 });
+      gsap.set(headline, { opacity: 1, y: 0 });
+      gsap.set(wipe, { display: "none" });
+      return;
+    }
+
+    // Play video if available
+    const video = videoRef.current;
+    if (video && useVideo) {
+      video.play().catch(() => {});
+    }
+
+    const ctx = gsap.context(() => {
+      // Hero pin + media scale + type parallax-out
+      const heroTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=100%",
+          scrub: 0.6,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      heroTimeline
+        .to(
+          media,
+          {
+            scale: 1.12,
+            ease: "none",
+          },
+          0
+        )
+        .to(
+          kicker,
+          {
+            yPercent: -140,
+            opacity: 0,
+            ease: "power1.in",
+          },
+          0
+        )
+        .to(
+          headline,
+          {
+            yPercent: -90,
+            opacity: 0,
+            ease: "power1.in",
+          },
+          0.05
+        );
+
+      // PageWipe — clip-path reveal
+      gsap.to(wipe, {
+        clipPath: "inset(0% 0 0 0)",
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=100%",
+          scrub: 0.6,
+        },
+      });
+
+      // Hide wipe panel after animation completes, restore on reverse
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=100%",
+        onLeave: () => gsap.set(wipe, { visibility: "hidden" }),
+        onLeaveBack: () => gsap.set(wipe, { visibility: "visible" }),
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [useVideo]);
 
   return (
-    <section ref={sectionRef} className="relative h-dvh w-full overflow-hidden bg-dark-bg">
-      {isVisible && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-          poster={videoUrls.heroPoster}
+    <>
+      <section
+        ref={sectionRef}
+        id="hero"
+        className="relative h-dvh w-full overflow-hidden bg-dark-bg"
+      >
+        {/* Background media */}
+        <div
+          ref={mediaRef}
+          className="absolute inset-0 w-full h-full origin-center"
         >
-          <source
-            src={videoUrls.hero}
-            type="video/mp4"
-          />
-        </video>
-      )}
+          {useVideo ? (
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+              poster="/data/hero-poster.jpg"
+            >
+              <source src="/data/hero.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src="/data/hero-poster.jpg"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+          )}
+        </div>
 
-      <div className="absolute inset-0 bg-overlay-dark" />
-      <div className="absolute inset-0 video-overlay" />
+        {/* Scrim gradient — ensures headline legibility */}
+        <div
+          className="absolute inset-0 z-[1]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%)",
+          }}
+        />
 
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-center"
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-accent text-xs tracking-[0.3em] uppercase mb-6"
+        {/* Content — bottom-anchored */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-[12vh] md:px-10 lg:px-20">
+          <p
+            ref={kickerRef}
+            className="text-accent text-[11px] md:text-xs lg:text-[13px] tracking-[0.3em] uppercase mb-4 md:mb-5 lg:mb-6"
+            style={{ opacity: 0 }}
           >
             {t("hero.kicker")}
-          </motion.p>
+          </p>
 
-          <h1 className="font-[family-name:var(--font-inter)] text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-8 leading-[0.9]">
-            {t("hero.line1")}
-            <br />
-            {t("hero.line2")}
-            <br />
-            {t("hero.line3")}
-          </h1>
-
-          <div className="h-8 flex items-center justify-center overflow-hidden" aria-live="polite" aria-atomic="true">
-            <motion.span
-              key={currentKeyword}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="text-muted text-sm tracking-[0.3em] uppercase"
-            >
-              {keywords[currentKeyword]}
-            </motion.span>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
+          <h1
+            ref={headlineRef}
+            className="font-[family-name:var(--font-inter)] font-black text-white leading-[0.92] md:leading-[0.96] lg:leading-[0.94]"
+            style={{
+              fontSize: "clamp(2.75rem, 9vw, 11rem)",
+              letterSpacing: "-0.02em",
+              opacity: 0,
+            }}
           >
-            <ChevronDown size={24} className="text-white/50" />
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
+            WELCOME TO THE
+            <br />
+            INVISIBLE FLOOR
+          </h1>
+        </div>
+      </section>
+
+      {/* PageWipe panel — fixed, clipped from bottom */}
+      <div
+        ref={wipeRef}
+        id="hero-wipe-panel"
+        className="fixed inset-0 z-[5] bg-dark-bg"
+        style={{ clipPath: "inset(100% 0 0 0)" }}
+      />
+    </>
   );
 }
