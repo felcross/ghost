@@ -30,7 +30,7 @@ export default function BlogCard({
       style={{ opacity: isDimmed ? 0.4 : 1, transition: "opacity 350ms cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       <div
-        className={`bg-overlay-light overflow-hidden rounded-2xl mb-4 ${sizeClasses[post.size]}`}
+        className={`relative bg-overlay-light overflow-hidden rounded-2xl mb-4 ${sizeClasses[post.size]}`}
         style={{ transform: isHovered ? "scale(1.03)" : "scale(1)", transition: "transform 400ms cubic-bezier(0.16, 1, 0.3, 1)" }}
       >
         <Image

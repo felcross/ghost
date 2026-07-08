@@ -5,7 +5,7 @@ import Hero from "@/components/Hero";
 const VideoShowcase = dynamic(() => import("@/components/VideoShowcase"));
 const BrazilShowcase = dynamic(() => import("@/components/BrazilShowcase"));
 const TrustedBy = dynamic(() => import("@/components/TrustedBy"));
-const SelectedWork = dynamic(() => import("@/components/SelectedWorkV2"));
+const PortfolioShowcaseGrid = dynamic(() => import("@/components/PortfolioShowcaseGrid"));
 const WhyWorkWithUs = dynamic(() => import("@/components/WhyWorkWithUs"));
 const Services = dynamic(() => import("@/components/Services"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
@@ -22,7 +22,7 @@ export default function Home() {
         <VideoShowcase />
         <BrazilShowcase />
         <TrustedBy />
-        <SelectedWork />
+        <PortfolioShowcaseGrid />
         <WhyWorkWithUs />
         <Services />
         <Testimonials />
