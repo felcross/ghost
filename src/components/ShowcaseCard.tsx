@@ -127,12 +127,11 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
         {isMobile && block.sprite ? (
           <SpriteAnimation
             src={block.sprite}
-            frameCount={block.spriteFrameCount ?? 6}
-            fps={3}
+            frameCount={block.spriteFrameCount ?? 12}
+            fps={4}
+            isVisible={inView}
             alt={block.poster.alt}
-            className={`object-cover transition-opacity duration-500 ${
-              showVideo ? "opacity-100" : "opacity-0"
-            }`}
+            className="object-cover"
           />
         ) : (
           <video

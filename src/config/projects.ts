@@ -9,7 +9,7 @@ export const projects: Project[] = [
     slug: "mercedes",
     brand: "MERCEDES",
     category: "GLOBAL CAMPAIGN",
-    cover: "/data/mercedes-poster.jpg",
+    cover: "/mercedes/optimized/mercedes-poster.jpg",
     gallery: [
       { src: "/mercedes/optimized/mercedes-inspire-desktop.webp", alt: "Mercedes-Benz cinematic campaign", size: "lg" },
       { src: "/mercedes/optimized/mercedes-inspire-1-desktop.webp", alt: "Mercedes-Benz global campaign", size: "sm" },
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     slug: "fila",
     brand: "FILA",
     category: "INTERNATIONAL PRODUCTION",
-    cover: "/data/fila-poster.jpg",
+    cover: "/fila/optimized/fila-poster.jpg",
     gallery: [
       { src: "/fila/optimized/fila-rcm04879-desktop.webp", alt: "Fila Italy campaign", size: "lg" },
       { src: "/fila/optimized/fila-rcm00738-desktop.webp", alt: "Fila sportswear collection", size: "md" },
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     slug: "original-penguin",
     brand: "Original Penguin",
     category: "EXECUTIVE PRODUCTION & CREATIVE DIRECTION",
-    cover: "/data/originalpenguin-poster.jpg",
+    cover: "/original-penguin/optimized/originalpenguin-poster.jpg",
     gallery: [
       { src: "/original-penguin/optimized/0526IKPG_2574-desktop.webp", alt: "Original Penguin collection launch", size: "lg" },
       { src: "/original-penguin/optimized/0526IKPG_2571-desktop.webp", alt: "Original Penguin fashion", size: "sm" },
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     slug: "renner",
     brand: "RENNER",
     category: "EXECUTIVE PRODUCTION",
-    cover: "/data/renner-poster.jpg",
+    cover: "/renner/optimized/renner-poster.jpg",
     gallery: [
       { src: "/renner/optimized/251108_MM_RENNER_3959-desktop.webp", alt: "Renner summer campaign", size: "lg" },
       { src: "/renner/optimized/251108_MM_RENNER_3842-desktop.webp", alt: "Renner fashion retail", size: "sm" },
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     slug: "live",
     brand: "LIVE",
     category: "EXECUTIVE PRODUCTION & COPYWRITING",
-    cover: "/data/live-poster.jpg",
+    cover: "/live/optimized/live-poster.jpg",
     gallery: [
       { src: "/live/optimized/0W6A8623-desktop.webp", alt: "LIVE Shape Your Mind campaign", size: "lg" },
       { src: "/live/optimized/0W6A8830-desktop.webp", alt: "LIVE music festival", size: "md" },

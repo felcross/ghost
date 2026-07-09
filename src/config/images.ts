@@ -17,9 +17,9 @@ export const faqImage = "https://images.unsplash.com/photo-1553877522-43269d4ea9
 
 export const videoUrls = {
   hero: "/data/hero.mp4",
-  heroPoster: "/data/hero-poster.jpg",
+  heroPoster: "/mercedes/optimized/hero-poster.jpg",
   showcase: "/data/SP.mp4",
-  showcasePoster: "/data/hero-poster.jpg",
+  showcasePoster: "/mercedes/optimized/hero-poster.jpg",
   brazil: "https://videos.pexels.com/video-files/35933207/15244916_2560_1440_60fps.mp4",
   brazilPoster: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80",
   whyWorkWithUsFesta: "/data/festa.mp4",

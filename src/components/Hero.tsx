@@ -66,13 +66,13 @@ export default function Hero() {
             playsInline
             preload="none"
             className="absolute inset-0 w-full h-full object-cover object-[center_40%] opacity-60"
-            poster="/data/hero-poster.jpg"
+            poster="/mercedes/optimized/hero-poster.jpg"
           >
             <source src="/data/hero.mp4" type="video/mp4" />
           </video>
         ) : (
           <img
-            src="/data/hero-poster.jpg"
+            src="/mercedes/optimized/hero-poster.jpg"
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-[center_40%] opacity-60"
           />
