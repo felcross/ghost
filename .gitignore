@@ -43,19 +43,27 @@ next-env.d.ts
 # mimocode
 .mimocode/
 
-# Raw source images (large originals — use convert-images.sh for web-optimized versions)
-public/fila/
-public/live/
-public/mercedes/
-public/mercedes-vans/
-public/new balance/
-public/original penguin/
+# Raw source images — ignore everything in brand folders, un-ignore only optimized/
+public/bento-grid/*
+!public/bento-grid/optimized/
+
+public/fila/*
+!public/fila/optimized/
+
+public/live/*
+!public/live/optimized/
+
+public/mercedes/*
+!public/mercedes/optimized/
+
+public/mercedes-vans/*
+
+public/new-balance/*
+!public/new-balance/optimized/
+
+public/original-penguin/*
+!public/original-penguin/optimized/
+
+# Other raw/backup folders
 public/Por Que Nos Escolher/
 public/data copy/
-
-# Raw bento-grid PNGs (use optimized/ folder instead)
-public/bento-grid/*.png
-public/bento-grid/*.PNG
-
-# Generated optimized images
-public/*/optimized/
