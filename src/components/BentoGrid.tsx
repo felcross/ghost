@@ -52,7 +52,7 @@ export default function BentoGrid() {
             }}
           >
             <Image
-              src={`/Por Que Nos Escolher/optimized/${img.id}-desktop.webp`}
+              src={`/bento-grid/optimized/${img.id}-desktop.webp`}
               alt={img.alt}
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
@@ -81,7 +81,7 @@ export default function BentoGrid() {
             }}
           >
             <Image
-              src={`/Por Que Nos Escolher/optimized/${img.id}-mobile.webp`}
+              src={`/bento-grid/optimized/${img.id}-mobile.webp`}
               alt={img.alt}
               fill
               sizes="50vw"

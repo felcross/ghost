@@ -78,11 +78,11 @@ export default function WhyWorkWithUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <VideoBlock
               src={videoUrls.whyWorkWithUsFesta}
-              poster="/data/hero-poster.jpg"
+              poster="/data/festa-poster.jpg"
             />
             <VideoBlock
               src={videoUrls.whyWorkWithUsClaquete}
-              poster="/data/hero-poster.jpg"
+              poster="/data/claquete-poster.jpg"
             />
           </div>
         </motion.div>

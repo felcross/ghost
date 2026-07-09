@@ -1,20 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "@/i18n/I18nProvider";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const mediaRef = useRef<HTMLDivElement>(null);
-  const kickerRef = useRef<HTMLParagraphElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const wipeRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   const [useVideo, setUseVideo] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -29,175 +24,89 @@ export default function Hero() {
     }
   }, []);
 
+  // IntersectionObserver for lazy video play
   useEffect(() => {
     const section = sectionRef.current;
-    const media = mediaRef.current;
-    const kicker = kickerRef.current;
-    const headline = headlineRef.current;
-    const wipe = wipeRef.current;
-    if (!section || !media || !kicker || !headline || !wipe) return;
+    if (!section) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
 
-    if (prefersReducedMotion) {
-      gsap.set(kicker, { opacity: 1, y: 0 });
-      gsap.set(headline, { opacity: 1, y: 0 });
-      gsap.set(wipe, { display: "none" });
-      return;
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible && videoRef.current && useVideo) {
+      videoRef.current.play().catch(() => {});
     }
-
-    // Play video if available
-    const video = videoRef.current;
-    if (video && useVideo) {
-      video.play().catch(() => {});
-    }
-
-    const ctx = gsap.context(() => {
-      // Hero pin + media scale + type parallax-out
-      const heroTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=100%",
-          scrub: 0.6,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      heroTimeline
-        .to(
-          media,
-          {
-            scale: 1.12,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          kicker,
-          {
-            yPercent: -140,
-            opacity: 0,
-            ease: "power1.in",
-          },
-          0
-        )
-        .to(
-          headline,
-          {
-            yPercent: -90,
-            opacity: 0,
-            ease: "power1.in",
-          },
-          0.05
-        );
-
-      // PageWipe — clip-path reveal
-      gsap.to(wipe, {
-        clipPath: "inset(0% 0 0 0)",
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=100%",
-          scrub: 0.6,
-        },
-      });
-
-      // Hide wipe panel after animation completes, restore on reverse
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "+=100%",
-        onLeave: () => gsap.set(wipe, { visibility: "hidden" }),
-        onLeaveBack: () => gsap.set(wipe, { visibility: "visible" }),
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, [useVideo]);
+  }, [isVisible, useVideo]);
 
   return (
-    <>
-      <section
-        ref={sectionRef}
-        id="hero"
-        className="relative h-dvh w-full overflow-hidden bg-dark-bg"
-      >
-        {/* Background media */}
-        <div
-          ref={mediaRef}
-          className="absolute inset-0 w-full h-full origin-center"
-        >
-          {useVideo ? (
-            <video
-              ref={videoRef}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
-              poster="/data/hero-poster.jpg"
-            >
-              <source src="/data/hero.mp4" type="video/mp4" />
-            </video>
-          ) : (
-            <img
-              src="/data/hero-poster.jpg"
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
-            />
-          )}
-        </div>
-
-        {/* Scrim gradient — ensures headline legibility */}
-        <div
-          className="absolute inset-0 z-[1]"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%)",
-          }}
-        />
-
-        {/* Content — bottom-anchored */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-[12vh] md:px-10 lg:px-20">
-          <p
-            ref={kickerRef}
-            className="text-accent text-[11px] md:text-xs lg:text-[13px] tracking-[0.3em] uppercase mb-4 md:mb-5 lg:mb-6"
-            style={{ opacity: 0 }}
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative h-dvh w-full overflow-hidden bg-dark-bg"
+    >
+      {/* Background media */}
+      <div className="absolute inset-0 w-full h-full">
+        {useVideo ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            poster="/data/hero-poster.jpg"
           >
-            {t("hero.kicker")}
-          </p>
+            <source src="/data/hero.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src="/data/hero-poster.jpg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
+          />
+        )}
+      </div>
 
-          <h1
-            ref={headlineRef}
-            className="font-[family-name:var(--font-inter)] font-black text-white leading-[0.92] md:leading-[0.96] lg:leading-[0.94]"
-            style={{
-              fontSize: "clamp(2.75rem, 9vw, 11rem)",
-              letterSpacing: "-0.02em",
-              opacity: 0,
-            }}
-          >
-            WELCOME TO THE
-            <br />
-            INVISIBLE FLOOR
-          </h1>
-        </div>
-      </section>
-
-      {/* PageWipe panel — fixed, clipped from bottom */}
+      {/* Scrim gradient — ensures headline legibility */}
       <div
-        ref={wipeRef}
-        id="hero-wipe-panel"
-        className="fixed inset-0 z-[5] bg-dark-bg"
-        style={{ clipPath: "inset(100% 0 0 0)" }}
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.55) 100%)",
+        }}
       />
-    </>
+
+      {/* Tagline — top, discreet */}
+      <div className="absolute top-0 left-0 right-0 z-10 px-6 pt-20 md:px-10 lg:px-20">
+        <p className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light">
+          {t("hero.kicker")}
+        </p>
+      </div>
+
+      {/* Headline — center */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6">
+        <h1
+          className="font-[family-name:var(--font-dm-sans)] font-light text-white text-center"
+          style={{
+            fontSize: "clamp(1.25rem, 3vw, 2rem)",
+            letterSpacing: "0.15em",
+          }}
+        >
+          Production Company &amp; Creative Studio
+        </h1>
+      </div>
+    </section>
   );
 }
