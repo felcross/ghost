@@ -5,8 +5,10 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/i18n/I18nProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 
 export default function Header() {
+  const { isVitrineOpen } = useMosaic();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -80,7 +82,11 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-light-bg/95 backdrop-blur-sm shadow-sm" : "bg-light-bg"
+          isVitrineOpen
+            ? "translate-y-[-100%]"
+            : isScrolled
+              ? "bg-light-bg/40 backdrop-blur-sm shadow-sm"
+              : "bg-light-bg/70"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">

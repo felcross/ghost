@@ -2,9 +2,10 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Play, Pause } from "lucide-react";
-import { useTranslation } from "@/i18n/I18nProvider";
+import { Play, Pause, ArrowRight } from "lucide-react";
 import type { ShowcaseBlock } from "@/config/showcase";
+import { useMosaic } from "@/components/Mosaic/MosaicProvider";
+import { getProjectByBrand } from "@/config/projects";
 
 const aspectRatios: Record<string, string> = {
   third: "4/3",
@@ -14,6 +15,7 @@ const aspectRatios: Record<string, string> = {
 };
 
 export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
+  const { openProject } = useMosaic();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
   const [ready, setReady] = useState(false);
@@ -21,7 +23,6 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
   const [isMobile, setIsMobile] = useState(false);
   const [saveData, setSaveData] = useState(false);
   const [videoStarted, setVideoStarted] = useState(false);
-  const { t } = useTranslation();
 
   useEffect(() => {
     setReducedMotion(
@@ -84,11 +85,7 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
   const canTapPlay = saveData && !videoStarted;
 
   return (
-    <a
-      href={block.href}
-      className="group block relative overflow-hidden"
-      onClick={canTapPlay ? (e) => { e.preventDefault(); handleTapPlay(); } : undefined}
-    >
+    <div className="group block relative overflow-hidden pointer-events-none">
       {/* Poster image */}
       <div
         className="relative w-full"
@@ -147,8 +144,8 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
         <button
           type="button"
           onClick={(e) => { e.preventDefault(); handleTapPlay(); }}
-          className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm opacity-85"
-          aria-label={videoRef.current?.paused ? t("showcase.playVideo") : t("showcase.pauseVideo")}
+          className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm opacity-85 pointer-events-auto"
+          aria-label={videoRef.current?.paused ? "Play video" : "Pause video"}
         >
           {videoRef.current?.paused ? (
             <Play size={16} className="text-white" />
@@ -160,29 +157,49 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
 
       {/* SaveData tap-to-play indicator */}
       {canTapPlay && (
-        <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-auto">
           <div className="w-14 h-14 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
             <Play size={24} className="text-white ml-1" />
           </div>
         </div>
       )}
 
-      {/* Label overlay — always visible */}
-      <div className="absolute bottom-4 left-4 z-10">
-        <span className={`block font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.05em] text-white ${isMobile ? "text-xs" : "text-[11px]"}`}>
-          {block.client}
-        </span>
-        {block.category && (
-          <span className={`block font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.05em] text-white/70 ${isMobile ? "text-xs" : "text-[11px]"}`}>
-            {block.category}
+      {/* Clickable text block — the ONLY interactive zone */}
+      <button
+        onClick={() => {
+          const project = getProjectByBrand(block.client);
+          if (project) openProject(project);
+        }}
+        className={`absolute bottom-4 left-4 z-10 pointer-events-auto cursor-pointer group/text flex items-end gap-2 ${
+          canTapPlay ? "hidden" : ""
+        }`}
+      >
+        <div className="flex flex-col">
+          {/* Line 1: Client name (bold, uppercase) + Line 2: Campaign (lighter) */}
+          <span className={`font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white ${isMobile ? "text-sm" : "text-sm"}`}>
+            {block.client}
+            <span className="font-normal text-white/80"> — {block.title}</span>
           </span>
-        )}
-      </div>
+          {/* Line 3: Service type (smallest, accent color) */}
+          {block.category && (
+            <span className={`font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.08em] text-accent ${isMobile ? "text-[10px] mt-0.5" : "text-[10px] mt-0.5"}`}>
+              {block.category}
+            </span>
+          )}
+        </div>
+        {/* Click indicator icon */}
+        <ArrowRight
+          size={14}
+          className={`text-white/60 transition-opacity duration-200 mb-0.5 ${
+            isMobile ? "opacity-100" : "opacity-0 group-hover/text:opacity-100"
+          }`}
+        />
+      </button>
 
       {/* Mobile hairline divider */}
       {isMobile && (
         <div className="absolute bottom-0 left-0 right-0 h-px bg-white/[0.08]" />
       )}
-    </a>
+    </div>
   );
 }

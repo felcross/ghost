@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
 const VideoShowcase = dynamic(() => import("@/components/VideoShowcase"));
 const BrazilShowcase = dynamic(() => import("@/components/BrazilShowcase"));
@@ -16,7 +17,7 @@ const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
-    <>
+    <MosaicProvider>
       <Header />
       <main id="main-content">
         <Hero />
@@ -32,6 +33,6 @@ export default function Home() {
         <ContactForm />
       </main>
       <Footer />
-    </>
+    </MosaicProvider>
   );
 }
