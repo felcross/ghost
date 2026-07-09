@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { MosaicImage } from "@/types/project";
 
 interface LightboxProps {
@@ -13,8 +13,6 @@ interface LightboxProps {
 
 export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -29,22 +27,20 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
       const img = new window.Image();
       img.src = src;
     };
-    const prev = (currentIndex - 1 + images.length) % images.length;
-    const next = (currentIndex + 1) % images.length;
-    preloadImage(images[prev].src);
-    preloadImage(images[next].src);
+    if (currentIndex > 0) preloadImage(images[currentIndex - 1].src);
+    if (currentIndex < images.length - 1) preloadImage(images[currentIndex + 1].src);
   }, [currentIndex, images]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") goPrev();
-      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft" && currentIndex > 0) goPrev();
+      if (e.key === "ArrowRight" && currentIndex < images.length - 1) goNext();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex]);
+  }, [currentIndex, images.length]);
 
   // Lock body scroll
   useEffect(() => {
@@ -53,41 +49,46 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
   }, []);
 
   const goPrev = useCallback(() => {
-    setCurrentIndex((i) => (i - 1 + images.length) % images.length);
-  }, [images.length]);
+    setCurrentIndex((i) => Math.max(0, i - 1));
+  }, []);
 
   const goNext = useCallback(() => {
-    setCurrentIndex((i) => (i + 1) % images.length);
+    setCurrentIndex((i) => Math.min(images.length - 1, i + 1));
   }, [images.length]);
 
-  // Swipe handling
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const minSwipe = 50;
-    if (distance > minSwipe) goNext();
-    if (distance < -minSwipe) goPrev();
-  };
-
   const animationDuration = reducedMotion ? "0ms" : "200ms";
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === images.length - 1;
 
   return (
     <div
       className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
     >
+      {/* Tap zones — full half-screen targets */}
+      <div className="absolute inset-0 z-5 flex">
+        <div
+          className={`w-1/2 h-full ${isFirst ? "cursor-default" : "cursor-pointer"}`}
+          onClick={(e) => { e.stopPropagation(); if (!isFirst) goPrev(); }}
+        />
+        <div
+          className={`w-1/2 h-full ${isLast ? "cursor-default" : "cursor-pointer"}`}
+          onClick={(e) => { e.stopPropagation(); if (!isLast) goNext(); }}
+        />
+      </div>
+
+      {/* Visual arrow affordances (not clickable) */}
+      {!isFirst && (
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 opacity-30 pointer-events-none">
+          <ChevronLeft size={24} className="text-white" />
+        </div>
+      )}
+      {!isLast && (
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10 opacity-30 pointer-events-none">
+          <ChevronRight size={24} className="text-white" />
+        </div>
+      )}
+
       {/* Close button — styled like BackToGhostBox */}
       <button
         onClick={onClose}
@@ -106,6 +107,7 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
       {/* Image */}
       <div className="relative w-full h-full flex items-center justify-center p-4">
         <Image
+          key={images[currentIndex].src}
           src={images[currentIndex].src}
           alt={images[currentIndex].alt}
           fill
