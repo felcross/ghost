@@ -6,6 +6,7 @@ import { Play, Pause, ArrowRight } from "lucide-react";
 import type { ShowcaseBlock } from "@/config/showcase";
 import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 import { getProjectByBrand } from "@/config/projects";
+import { SpriteAnimation } from "./SpriteAnimation";
 
 const aspectRatios: Record<string, string> = {
   third: "4/3",
@@ -122,17 +123,29 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
           priority={false}
         />
 
-        {/* Video preview */}
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          preload="none"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            showVideo ? "opacity-100" : "opacity-0"
-          }`}
-        />
+        {/* Video preview / Sprite animation */}
+        {isMobile && block.sprite ? (
+          <SpriteAnimation
+            src={block.sprite}
+            frameCount={block.spriteFrameCount ?? 6}
+            fps={3}
+            alt={block.poster.alt}
+            className={`object-cover transition-opacity duration-500 ${
+              showVideo ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="none"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              showVideo ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
       </div>
 
       {/* Corner brackets — desktop only, hover-gated */}

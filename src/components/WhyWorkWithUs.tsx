@@ -5,11 +5,17 @@ import { motion } from "framer-motion";
 import { useTranslation } from "@/i18n/I18nProvider";
 import { videoUrls } from "@/config/images";
 import BentoGrid from "./BentoGrid";
+import { SpriteAnimation } from "./SpriteAnimation";
 
-function VideoBlock({ src, poster }: { src: string; poster?: string }) {
+function VideoBlock({ src, poster, spriteSrc, spriteFrameCount = 6 }: { src: string; poster?: string; spriteSrc?: string; spriteFrameCount?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(max-width: 767px)").matches);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -28,26 +34,36 @@ function VideoBlock({ src, poster }: { src: string; poster?: string }) {
   }, []);
 
   useEffect(() => {
-    if (isVisible && videoRef.current) {
+    if (isVisible && videoRef.current && !isMobile) {
       videoRef.current.play().catch(() => {});
     }
-  }, [isVisible]);
+  }, [isVisible, isMobile]);
 
   return (
     <div ref={sectionRef} className="relative aspect-video overflow-hidden">
       {isVisible && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
-          poster={poster}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
+        isMobile && spriteSrc ? (
+          <SpriteAnimation
+            src={spriteSrc}
+            frameCount={spriteFrameCount}
+            fps={3}
+            alt="Production moment"
+            className="object-cover opacity-80"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            poster={poster}
+          >
+            <source src={src} type="video/mp4" />
+          </video>
+        )
       )}
       <div className="absolute inset-0 bg-overlay-medium" />
     </div>
@@ -79,10 +95,14 @@ export default function WhyWorkWithUs() {
             <VideoBlock
               src={videoUrls.whyWorkWithUsFesta}
               poster="/data/festa-poster.jpg"
+              spriteSrc="/data/optimized/festa-sprite.webp"
+              spriteFrameCount={5}
             />
             <VideoBlock
               src={videoUrls.whyWorkWithUsClaquete}
               poster="/data/claquete-poster.jpg"
+              spriteSrc="/data/optimized/claquete-sprite.webp"
+              spriteFrameCount={6}
             />
           </div>
         </motion.div>
