@@ -53,5 +53,9 @@ public/original penguin/
 public/Por Que Nos Escolher/
 public/data copy/
 
+# Raw bento-grid PNGs (use optimized/ folder instead)
+public/bento-grid/*.png
+public/bento-grid/*.PNG
+
 # Generated optimized images
 public/*/optimized/
