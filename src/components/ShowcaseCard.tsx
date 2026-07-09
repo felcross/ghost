@@ -85,7 +85,25 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
   const canTapPlay = saveData && !videoStarted;
 
   return (
-    <div className="group block relative overflow-hidden pointer-events-none">
+    <div
+      className={`group block relative overflow-hidden ${
+        isMobile ? "pointer-events-auto cursor-pointer" : "pointer-events-none"
+      }`}
+      onClick={isMobile ? () => {
+        const project = getProjectByBrand(block.client);
+        if (project) openProject(project);
+      } : undefined}
+      role={isMobile ? "button" : undefined}
+      tabIndex={isMobile ? 0 : undefined}
+      aria-label={isMobile ? `${block.client} — ${block.title}${block.category ? `, ${block.category}` : ""}` : undefined}
+      onKeyDown={isMobile ? (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const project = getProjectByBrand(block.client);
+          if (project) openProject(project);
+        }
+      } : undefined}
+    >
       {/* Poster image */}
       <div
         className="relative w-full"
@@ -164,14 +182,14 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
         </div>
       )}
 
-      {/* Clickable text block — the ONLY interactive zone */}
+      {/* Clickable text block — the ONLY interactive zone (desktop only) */}
       <button
         onClick={() => {
           const project = getProjectByBrand(block.client);
           if (project) openProject(project);
         }}
         className={`absolute bottom-4 left-4 z-10 pointer-events-auto cursor-pointer group/text flex items-end gap-2 ${
-          canTapPlay ? "hidden" : ""
+          canTapPlay || isMobile ? "hidden" : ""
         }`}
       >
         <div className="flex flex-col">

@@ -85,15 +85,15 @@ export default function Header() {
           isVitrineOpen
             ? "translate-y-[-100%]"
             : isScrolled
-              ? "bg-light-bg/40 backdrop-blur-sm shadow-sm"
-              : "bg-light-bg/70"
+              ? "bg-light-bg/10 backdrop-blur-sm shadow-sm"
+              : "bg-light-bg/40"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a href="#" className="relative z-10">
-              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light">
+              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
                 GHOST STUDIO
               </span>
             </a>
@@ -105,6 +105,7 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   className="text-xs tracking-[0.2em] text-text-on-light-muted hover:text-text-on-light transition-colors duration-300"
+                  style={{ textShadow: "0 1px 2px rgba(0,0,0,0.2)" }}
                 >
                   {item.label}
                 </a>

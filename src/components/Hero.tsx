@@ -65,7 +65,7 @@ export default function Hero() {
             loop
             playsInline
             preload="none"
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-cover object-[center_40%] opacity-60"
             poster="/data/hero-poster.jpg"
           >
             <source src="/data/hero.mp4" type="video/mp4" />
@@ -74,7 +74,7 @@ export default function Hero() {
           <img
             src="/data/hero-poster.jpg"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-cover object-[center_40%] opacity-60"
           />
         )}
       </div>
@@ -95,18 +95,6 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* Headline — center */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6">
-        <h1
-          className="font-[family-name:var(--font-dm-sans)] font-light text-white text-center"
-          style={{
-            fontSize: "clamp(1.25rem, 3vw, 2rem)",
-            letterSpacing: "0.15em",
-          }}
-        >
-          Production Company &amp; Creative Studio
-        </h1>
-      </div>
     </section>
   );
 }
