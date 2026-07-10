@@ -6,7 +6,6 @@ import { Play, Pause, ArrowRight } from "lucide-react";
 import type { ShowcaseBlock } from "@/config/showcase";
 import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 import { getProjectByBrand } from "@/config/projects";
-import { SpriteAnimation } from "./SpriteAnimation";
 
 const aspectRatios: Record<string, string> = {
   third: "4/3",
@@ -35,7 +34,7 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     setSaveData(conn?.saveData ?? false);
   }, []);
 
-  // IntersectionObserver — threshold 0.35 per spec
+  // IntersectionObserver — threshold 0.35
   useEffect(() => {
     const el = videoRef.current?.parentElement;
     if (!el) return;
@@ -117,34 +116,24 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
           alt={block.poster.alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="eager"
           className={`object-cover transition-opacity duration-500 ${
             showVideo ? "opacity-0" : "opacity-100"
           }`}
           priority={false}
         />
 
-        {/* Video preview / Sprite animation */}
-        {isMobile && block.sprite ? (
-          <SpriteAnimation
-            src={block.sprite}
-            frameCount={block.spriteFrameCount ?? 12}
-            fps={4}
-            isVisible={inView}
-            alt={block.poster.alt}
-            className="object-cover"
-          />
-        ) : (
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            preload="none"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              showVideo ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        )}
+        {/* Video preview */}
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            showVideo ? "opacity-100" : "opacity-0"
+          }`}
+        />
       </div>
 
       {/* Corner brackets — desktop only, hover-gated */}
@@ -205,19 +194,16 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
         }`}
       >
         <div className="flex flex-col">
-          {/* Line 1: Client name (bold, uppercase) + Line 2: Campaign (lighter) */}
           <span className={`font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white ${isMobile ? "text-sm" : "text-sm"}`}>
             {block.client}
             <span className="font-normal text-white/80"> — {block.title}</span>
           </span>
-          {/* Line 3: Service type (smallest, accent color) */}
           {block.category && (
             <span className={`font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.08em] text-accent ${isMobile ? "text-[10px] mt-0.5" : "text-[10px] mt-0.5"}`}>
               {block.category}
             </span>
           )}
         </div>
-        {/* Click indicator icon */}
         <ArrowRight
           size={14}
           className={`text-white/60 transition-opacity duration-200 mb-0.5 ${

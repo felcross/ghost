@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "@/i18n/I18nProvider";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const { t } = useTranslation();
 
   const [useVideo, setUseVideo] = useState(true);
@@ -49,6 +51,49 @@ export default function Hero() {
     }
   }, [isVisible, useVideo]);
 
+  // GSAP Hero animations
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 769px)",
+        isMobile: "(max-width: 768px)",
+        reduceMotion: "(prefers-reduced-motion: reduce)",
+      },
+      (ctx) => {
+        const conditions = ctx.conditions as { reduceMotion?: boolean } | undefined;
+        const reduceMotion = conditions?.reduceMotion ?? false;
+
+        if (reduceMotion) {
+          // Final state instantly — no animation
+          gsap.set(taglineRef.current, { opacity: 1, y: 0 });
+          return;
+        }
+
+        // Entrance timeline
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        tl.from(taglineRef.current, {
+          autoAlpha: 0,
+          y: 24,
+          duration: 0.7,
+        });
+
+        // Ken Burns zoom on video
+        if (videoRef.current) {
+          gsap.to(videoRef.current, {
+            scale: 1.05,
+            duration: 18,
+            ease: "none",
+            repeat: -1,
+            yoyo: true,
+            transformOrigin: "50% 50%",
+          });
+        }
+      }
+    );
+  }, { scope: sectionRef });
+
   return (
     <section
       ref={sectionRef}
@@ -56,7 +101,7 @@ export default function Hero() {
       className="relative h-dvh w-full overflow-hidden bg-dark-bg"
     >
       {/* Background media */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
         {useVideo ? (
           <video
             ref={videoRef}
@@ -90,11 +135,13 @@ export default function Hero() {
 
       {/* Tagline — top, discreet */}
       <div className="absolute top-0 left-0 right-0 z-10 px-6 pt-20 md:px-10 lg:px-20">
-        <p className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light">
+        <p
+          ref={taglineRef}
+          className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light"
+        >
           {t("hero.kicker")}
         </p>
       </div>
-
     </section>
   );
 }
