@@ -6,14 +6,14 @@ interface ManagedVideo {
 }
 
 function getMaxConcurrent(): number {
-  if (typeof window === "undefined") return 4;
+  if (typeof window === "undefined") return 6;
   const isLowEnd =
     navigator.hardwareConcurrency <= 4 ||
     ["slow-2g", "2g", "3g"].includes(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (navigator as any).connection?.effectiveType ?? ""
     );
-  return isLowEnd ? 2 : 4;
+  return isLowEnd ? 2 : 6;
 }
 
 class VideoPlaybackPool {

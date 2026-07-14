@@ -33,9 +33,7 @@ export function MosaicGrid({ images }: { images: MosaicImage[] }) {
         {images.map((img, i) => (
           <div
             key={img.src}
-            className={`${styles.tile} ${sizeClassMap[img.size]} ${
-              isMobile ? "cursor-pointer" : ""
-            }`}
+            className={`${styles.tile} ${sizeClassMap[img.size]} cursor-pointer`}
             data-active={
               hoveredIndex === null
                 ? "idle"
@@ -45,16 +43,16 @@ export function MosaicGrid({ images }: { images: MosaicImage[] }) {
             }
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={isMobile ? () => setLightboxIndex(i) : undefined}
-            role={isMobile ? "button" : undefined}
-            tabIndex={isMobile ? 0 : undefined}
-            aria-label={isMobile ? img.alt : undefined}
-            onKeyDown={isMobile ? (e) => {
+            onClick={() => setLightboxIndex(i)}
+            role="button"
+            tabIndex={0}
+            aria-label={img.alt}
+            onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 setLightboxIndex(i);
               }
-            } : undefined}
+            }}
           >
             <Image
               src={img.src}

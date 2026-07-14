@@ -128,7 +128,7 @@ export function MosaicOverlay({ project, onClose }: MosaicOverlayProps) {
           transition={{ duration: 0.35 }}
         >
           <motion.div
-            className="w-full h-full overflow-auto"
+            className="w-full h-full overflow-hidden"
             variants={containerVariants}
             initial="hidden"
             animate="visible"

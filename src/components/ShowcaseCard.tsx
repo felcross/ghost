@@ -8,13 +8,6 @@ import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 import { getProjectByBrand } from "@/config/projects";
 import { pool } from "@/lib/videoConcurrency";
 
-const aspectRatios: Record<string, string> = {
-  third: "4/3",
-  half: "16/10",
-  two_thirds: "16/9",
-  full: "21/9",
-};
-
 let idCounter = 0;
 
 export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
@@ -53,7 +46,6 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         pool.setInView(videoId.current, entry.isIntersecting);
-        // Calculate distance from viewport center
         const rect = entry.boundingClientRect;
         const viewCenter = window.innerHeight / 2;
         const elCenter = rect.top + rect.height / 2;
@@ -90,34 +82,33 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
 
   const showVideo = ready && !reducedMotion && !saveData;
 
+  const handleOpenProject = () => {
+    const project = getProjectByBrand(block.client);
+    if (project) openProject(project);
+  };
+
   return (
     <div
-      className={`group block relative overflow-hidden ${
-        isMobile ? "pointer-events-auto cursor-pointer" : "pointer-events-none"
+      className={`group block relative overflow-hidden h-full ${
+        isMobile ? "pointer-events-auto cursor-pointer" : ""
       }`}
-      onClick={isMobile ? () => {
-        const project = getProjectByBrand(block.client);
-        if (project) openProject(project);
-      } : undefined}
+      style={{ minWidth: 0, minHeight: 0 }}
+      onClick={isMobile ? handleOpenProject : undefined}
       role={isMobile ? "button" : undefined}
       tabIndex={isMobile ? 0 : undefined}
-      aria-label={isMobile ? `${block.client} — ${block.title}${block.category ? `, ${block.category}` : ""}` : undefined}
+      aria-label={`${block.client} — ${block.title}${block.category ? `, ${block.category}` : ""}`}
       onKeyDown={isMobile ? (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          const project = getProjectByBrand(block.client);
-          if (project) openProject(project);
+          handleOpenProject();
         }
       } : undefined}
     >
       {/* Poster image */}
       <div
         ref={containerRef}
-        className="relative w-full"
-        style={{
-          aspectRatio: isMobile ? "4/5" : (aspectRatios[block.width] || "16/9"),
-          contentVisibility: "auto",
-        }}
+        className="relative w-full h-full"
+        style={{ contentVisibility: "auto" }}
       >
         <Image
           src={block.poster.src}
@@ -144,37 +135,34 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
         />
       </div>
 
-      {/* Corner brackets — desktop only, hover-gated */}
-      {!isMobile && (
-        <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-          style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
-          aria-hidden="true"
-        >
-          <svg className="absolute top-3 left-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M0 8V0h8" />
-          </svg>
-          <svg className="absolute top-3 right-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M20 8V0h-8" />
-          </svg>
-          <svg className="absolute bottom-3 left-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M0 12v8h8" />
-          </svg>
-          <svg className="absolute bottom-3 right-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M20 12v8h8" />
-          </svg>
-        </div>
-      )}
+      {/* Corner brackets — hover-gated */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+        style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
+        aria-hidden="true"
+      >
+        <svg className="absolute top-3 left-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M0 8V0h8" />
+        </svg>
+        <svg className="absolute top-3 right-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M20 8V0h-8" />
+        </svg>
+        <svg className="absolute bottom-3 left-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M0 12v8h8" />
+        </svg>
+        <svg className="absolute bottom-3 right-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M20 12v8h8" />
+        </svg>
+      </div>
 
-      {/* Clickable text block — desktop only */}
-      <button
-        onClick={() => {
-          const project = getProjectByBrand(block.client);
-          if (project) openProject(project);
-        }}
-        className={`absolute bottom-4 left-4 z-10 pointer-events-auto cursor-pointer group/text flex items-end gap-2 ${
-          isMobile ? "hidden" : ""
-        }`}
+      {/* Text overlay — desktop: hover + click; mobile: hidden */}
+      <div
+        className={`absolute bottom-4 left-4 z-10 ${
+          isMobile
+            ? "hidden"
+            : "pointer-events-auto cursor-pointer opacity-0 group-hover:opacity-100"
+        } transition-opacity duration-200`}
+        onClick={handleOpenProject}
       >
         <div className="flex flex-col">
           <span className="font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white text-sm">
@@ -187,11 +175,10 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
             </span>
           )}
         </div>
-        <ArrowRight
-          size={14}
-          className="text-white/60 opacity-0 group-hover/text:opacity-100 transition-opacity duration-200 mb-0.5"
-        />
-      </button>
+        <div className="flex items-center gap-1 mt-1">
+          <ArrowRight size={14} className="text-white/60" />
+        </div>
+      </div>
 
       {/* Mobile hairline divider */}
       {isMobile && (

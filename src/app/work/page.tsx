@@ -12,7 +12,7 @@ export default function WorkPage() {
   return (
     <MosaicProvider>
       <Header />
-      <main id="main-content">
+      <main id="main-content" className="overflow-hidden" style={{ height: "100dvh" }}>
         <PortfolioShowcaseGrid />
       </main>
     </MosaicProvider>
