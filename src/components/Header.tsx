@@ -1,18 +1,33 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/i18n/I18nProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 
+const darkBgRoutes = ["/work", "/services", "/about"];
+
 export default function Header() {
+  const pathname = usePathname();
   const { isVitrineOpen } = useMosaic();
+  const isDarkPage = darkBgRoutes.includes(pathname);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!isDarkPage) return;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isDarkPage]);
 
   const closeMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
@@ -63,9 +78,6 @@ export default function Header() {
   }, [isMobileMenuOpen, closeMenu]);
 
   const navItems = [
-    { label: t("nav.work"), href: "/work" },
-    { label: t("nav.services"), href: "/services" },
-    { label: t("nav.about"), href: "/about" },
     { label: t("nav.contact"), href: "/#contact" },
   ];
 
@@ -73,13 +85,19 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          isVitrineOpen ? "translate-y-[-100%]" : "bg-transparent"
+          isVitrineOpen
+            ? "translate-y-[-100%]"
+            : isDarkPage
+              ? isScrolled
+                ? "bg-light-bg/5"
+                : "bg-light-bg/30"
+              : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
-            <a href="#" className="relative z-10">
+            <a href="/" className="relative z-10">
               <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
                 GHOST STUDIO
               </span>
@@ -91,7 +109,7 @@ export default function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-xs tracking-[0.2em] text-text-on-light-muted hover:text-text-on-light transition-colors duration-300"
+                  className="text-xs tracking-[0.2em] text-white hover:text-accent transition-colors duration-300"
                   style={{ textShadow: "0 1px 2px rgba(0,0,0,0.2)" }}
                 >
                   {item.label}

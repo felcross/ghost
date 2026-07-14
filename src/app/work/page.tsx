@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import HorizontalScroll from "@/components/HorizontalScroll";
-import WorkPanels from "@/components/WorkPanels";
+import PortfolioShowcaseGrid from "@/components/PortfolioShowcaseGrid";
 import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
 export const metadata: Metadata = {
@@ -15,11 +13,8 @@ export default function WorkPage() {
     <MosaicProvider>
       <Header />
       <main id="main-content">
-        <HorizontalScroll>
-          <WorkPanels />
-        </HorizontalScroll>
+        <PortfolioShowcaseGrid />
       </main>
-      <Footer />
     </MosaicProvider>
   );
 }

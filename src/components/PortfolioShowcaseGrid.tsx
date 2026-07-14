@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslation } from "@/i18n/I18nProvider";
 import { showcaseRows } from "@/config/showcase";
 import ShowcaseCard from "./ShowcaseCard";
 
@@ -13,20 +12,8 @@ const widthClasses = {
 };
 
 export default function PortfolioShowcaseGrid() {
-  const { t } = useTranslation();
-
   return (
-    <section id="work" className="relative bg-dark-bg">
-      {/* Header — floating overlay */}
-      <div className="absolute top-12 left-6 md:left-12 lg:left-20 z-20 pointer-events-none">
-        <p className="text-accent text-xs tracking-[0.3em] uppercase mb-4 drop-shadow-lg">
-          {t("selectedWorkV2.kicker")}
-        </p>
-        <h2 className="font-[family-name:var(--font-inter)] text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-lg">
-          {t("selectedWorkV2.title")}
-        </h2>
-      </div>
-
+    <section id="work" className="relative bg-dark-bg pt-24">
       {/* Showcase grid — zero-gap, full-bleed, edge-to-edge */}
       <div className="relative overflow-hidden">
         {showcaseRows.map((row, rowIndex) => (
