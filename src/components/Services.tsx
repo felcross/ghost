@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useTranslation } from "@/i18n/I18nProvider";
 import { servicesImages } from "@/config/images";
 
@@ -65,12 +66,13 @@ export default function Services() {
                   </p>
                 </div>
 
-                <div className="aspect-[16/10] bg-surface-dark overflow-hidden">
-                  <img
+                <div className="relative aspect-[16/10] bg-surface-dark overflow-hidden">
+                  <Image
                     src={servicesImages[index]}
                     alt={service.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
                   />
                 </div>
               </div>

@@ -45,7 +45,7 @@ export default function ContactForm() {
           </h2>
 
           {submitted ? (
-            <div className="flex items-center gap-3 bg-accent/10 border border-accent/30 rounded-2xl p-6">
+            <div role="status" aria-live="polite" className="flex items-center gap-3 bg-accent/10 border border-accent/30 rounded-2xl p-6">
               <CheckCircle size={20} className="text-accent shrink-0" />
               <p className="text-white text-sm">{t("contact.success")}</p>
             </div>

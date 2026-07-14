@@ -39,7 +39,7 @@ export default function BentoGrid() {
         className="hidden md:grid gap-[3px]"
         style={{
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridAutoRows: "200px",
+          gridAutoRows: "var(--bento-row-height)",
         }}
       >
         {bentoImages.map((img, i) => (
@@ -68,7 +68,7 @@ export default function BentoGrid() {
         className="grid md:hidden gap-[3px]"
         style={{
           gridTemplateColumns: "repeat(2, 1fr)",
-          gridAutoRows: "180px",
+          gridAutoRows: "var(--bento-row-height-mobile)",
         }}
       >
         {bentoImages.map((img, i) => (

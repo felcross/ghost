@@ -63,9 +63,8 @@ export default function Blog() {
 
         {/* Masonry grid — desktop */}
         <div
-          className="hidden md:grid gap-6"
+          className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6"
           style={{
-            gridTemplateColumns: "repeat(4, 1fr)",
             gridAutoRows: "200px",
           }}
         >

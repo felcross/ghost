@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { MosaicImage } from "@/types/project";
@@ -11,9 +11,14 @@ interface LightboxProps {
   onClose: () => void;
 }
 
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setReducedMotion(
@@ -31,23 +36,6 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
     if (currentIndex < images.length - 1) preloadImage(images[currentIndex + 1].src);
   }, [currentIndex, images]);
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft" && currentIndex > 0) goPrev();
-      if (e.key === "ArrowRight" && currentIndex < images.length - 1) goNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex, images.length]);
-
-  // Lock body scroll
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
-
   const goPrev = useCallback(() => {
     setCurrentIndex((i) => Math.max(0, i - 1));
   }, []);
@@ -56,12 +44,75 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
     setCurrentIndex((i) => Math.min(images.length - 1, i + 1));
   }, [images.length]);
 
+  // Keyboard navigation + focus trap
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "ArrowLeft" && currentIndex > 0) goPrev();
+      if (e.key === "ArrowRight" && currentIndex < images.length - 1) goNext();
+
+      // Focus trap
+      if (e.key === "Tab" && containerRef.current) {
+        const focusable = containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentIndex, images.length, onClose, goPrev, goNext]);
+
+  // Focus management: save previous focus, move focus into lightbox, restore on close
+  useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    closeRef.current?.focus();
+    return () => {
+      previousFocusRef.current?.focus();
+    };
+  }, []);
+
+  // Lock body scroll + mark background as inert
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) {
+      mainContent.setAttribute("aria-hidden", "true");
+      mainContent.setAttribute("inert", "");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      if (mainContent) {
+        mainContent.removeAttribute("aria-hidden");
+        mainContent.removeAttribute("inert");
+      }
+    };
+  }, []);
+
   const animationDuration = reducedMotion ? "0ms" : "200ms";
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === images.length - 1;
 
   return (
     <div
+      ref={containerRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Image lightbox: ${images[currentIndex].alt}`}
       className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
@@ -91,9 +142,10 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
 
       {/* Close button — styled like BackToGhostBox */}
       <button
+        ref={closeRef}
         onClick={onClose}
         className="absolute bottom-6 right-6 z-10 flex flex-col items-start gap-0.5 cursor-pointer group"
-        aria-label="Back to showcase"
+        aria-label="Close lightbox, back to showcase"
       >
         <span className="font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white text-sm">
           GHOST STUDIO
@@ -119,7 +171,10 @@ export function Lightbox({ images, startIndex, onClose }: LightboxProps) {
 
       {/* Counter */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 text-white/60 text-sm font-[family-name:var(--font-dm-sans)]">
-        {currentIndex + 1} / {images.length}
+        <span aria-live="polite" className="sr-only">
+          Image {currentIndex + 1} of {images.length}
+        </span>
+        <span aria-hidden="true">{currentIndex + 1} / {images.length}</span>
       </div>
     </div>
   );

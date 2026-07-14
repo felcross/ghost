@@ -9,19 +9,10 @@ import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 
 export default function Header() {
   const { isVitrineOpen } = useMosaic();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const closeMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
@@ -72,21 +63,17 @@ export default function Header() {
   }, [isMobileMenuOpen, closeMenu]);
 
   const navItems = [
-    { label: t("nav.work"), href: "#work" },
-    { label: t("nav.services"), href: "#services" },
-    { label: t("nav.about"), href: "#about" },
-    { label: t("nav.contact"), href: "#contact" },
+    { label: t("nav.work"), href: "/work" },
+    { label: t("nav.services"), href: "/services" },
+    { label: t("nav.about"), href: "/about" },
+    { label: t("nav.contact"), href: "/#contact" },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isVitrineOpen
-            ? "translate-y-[-100%]"
-            : isScrolled
-              ? "bg-light-bg/10 backdrop-blur-sm shadow-sm"
-              : "bg-light-bg/40"
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+          isVitrineOpen ? "translate-y-[-100%]" : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">

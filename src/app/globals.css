@@ -23,6 +23,11 @@
   --color-overlay-light: rgba(0, 0, 0, 0.1);
   --font-inter: var(--font-inter);
   --font-dm-sans: var(--font-dm-sans);
+  --mosaic-gap: 8px;
+  --mosaic-row-height: 120px;
+  --mosaic-row-height-mobile: 90px;
+  --bento-row-height: 200px;
+  --bento-row-height-mobile: 180px;
 }
 
 html {

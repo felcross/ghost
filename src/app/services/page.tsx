@@ -1,18 +1,20 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import TrustedBy from "@/components/TrustedBy";
-import ContactForm from "@/components/ContactForm";
+import Services from "@/components/Services";
 import Footer from "@/components/Footer";
 import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Ghost Studio | Services",
+  description: "Production and creative services by Ghost Studio.",
+};
+
+export default function ServicesPage() {
   return (
     <MosaicProvider>
       <Header />
       <main id="main-content">
-        <Hero />
-        <TrustedBy />
-        <ContactForm />
+        <Services />
       </main>
       <Footer />
     </MosaicProvider>

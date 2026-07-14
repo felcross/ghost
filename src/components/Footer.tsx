@@ -30,22 +30,22 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a href="#work" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                <a href="/work" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
                   {t("footer.work")}
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                <a href="/services" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
                   {t("footer.services")}
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                <a href="/about" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
                   {t("footer.about")}
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                <a href="/#contact" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
                   {t("footer.contact")}
                 </a>
               </li>
