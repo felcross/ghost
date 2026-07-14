@@ -2,10 +2,15 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Play, Pause, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ShowcaseBlock } from "@/config/showcase";
 import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 import { getProjectByBrand } from "@/config/projects";
+import {
+  registerVideo,
+  unregisterVideo,
+  setInView,
+} from "@/lib/videoConcurrency";
 
 const aspectRatios: Record<string, string> = {
   third: "4/3",
@@ -14,15 +19,16 @@ const aspectRatios: Record<string, string> = {
   full: "21/9",
 };
 
+let idCounter = 0;
+
 export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
   const { openProject } = useMosaic();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [inView, setInView] = useState(false);
+  const videoId = useRef(`video-${block.id}-${++idCounter}`);
   const [ready, setReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [saveData, setSaveData] = useState(false);
-  const [videoStarted, setVideoStarted] = useState(false);
 
   useEffect(() => {
     setReducedMotion(
@@ -34,13 +40,24 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     setSaveData(conn?.saveData ?? false);
   }, []);
 
-  // IntersectionObserver — threshold 0.35
+  // Register/unregister with concurrency manager
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    registerVideo(videoId.current, el);
+    return () => unregisterVideo(videoId.current);
+  }, []);
+
+  // IntersectionObserver — updates concurrency manager
   useEffect(() => {
     const el = videoRef.current?.parentElement;
     if (!el) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
+      ([entry]) => {
+        setInView(videoId.current, entry.isIntersecting);
+      },
       { threshold: 0.35 }
     );
 
@@ -48,41 +65,27 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     return () => observer.disconnect();
   }, []);
 
-  // Lazy-load video src and control play/pause
+  // Lazy-load video src when first visible
   useEffect(() => {
     const el = videoRef.current;
     if (!el || reducedMotion || saveData) return;
 
-    if (inView) {
-      if (!el.src) {
-        el.src = block.previewVideo.mp4;
-      }
-      el.play().catch(() => {});
-      setReady(true);
-      setVideoStarted(true);
-    } else {
-      el.pause();
-    }
-  }, [inView, block.previewVideo.mp4, reducedMotion, saveData]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !el.src) {
+          el.src = block.previewVideo.mp4;
+          setReady(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-  // Tap-to-play for saveData/low-end
-  const handleTapPlay = () => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (!el.src) {
-      el.src = block.previewVideo.mp4;
-    }
-    if (el.paused) {
-      el.play().catch(() => {});
-      setVideoStarted(true);
-      setReady(true);
-    } else {
-      el.pause();
-    }
-  };
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [block.previewVideo.mp4, reducedMotion, saveData]);
 
   const showVideo = ready && !reducedMotion && !saveData;
-  const canTapPlay = saveData && !videoStarted;
 
   return (
     <div
@@ -123,7 +126,7 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
           priority={false}
         />
 
-        {/* Video preview */}
+        {/* Video preview — fades in over poster */}
         <video
           ref={videoRef}
           muted
@@ -153,62 +156,35 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
             <path d="M0 12v8h8" />
           </svg>
           <svg className="absolute bottom-3 right-3 w-5 h-5 text-white" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M20 12v8h-8" />
+            <path d="M20 12v8h8" />
           </svg>
         </div>
       )}
 
-      {/* Play/Pause affordance — mobile only, 40×40px tap target */}
-      {isMobile && videoStarted && (
-        <button
-          type="button"
-          onClick={(e) => { e.preventDefault(); handleTapPlay(); }}
-          className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm opacity-85 pointer-events-auto"
-          aria-label={videoRef.current?.paused ? "Play video" : "Pause video"}
-        >
-          {videoRef.current?.paused ? (
-            <Play size={16} className="text-white" />
-          ) : (
-            <Pause size={16} className="text-white" />
-          )}
-        </button>
-      )}
-
-      {/* SaveData tap-to-play indicator */}
-      {canTapPlay && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-auto">
-          <div className="w-14 h-14 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
-            <Play size={24} className="text-white ml-1" />
-          </div>
-        </div>
-      )}
-
-      {/* Clickable text block — the ONLY interactive zone (desktop only) */}
+      {/* Clickable text block — desktop only */}
       <button
         onClick={() => {
           const project = getProjectByBrand(block.client);
           if (project) openProject(project);
         }}
         className={`absolute bottom-4 left-4 z-10 pointer-events-auto cursor-pointer group/text flex items-end gap-2 ${
-          canTapPlay || isMobile ? "hidden" : ""
+          isMobile ? "hidden" : ""
         }`}
       >
         <div className="flex flex-col">
-          <span className={`font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white ${isMobile ? "text-sm" : "text-sm"}`}>
+          <span className="font-[family-name:var(--font-dm-sans)] font-bold uppercase tracking-[0.05em] text-white text-sm">
             {block.client}
             <span className="font-normal text-white/80"> — {block.title}</span>
           </span>
           {block.category && (
-            <span className={`font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.08em] text-accent ${isMobile ? "text-[10px] mt-0.5" : "text-[10px] mt-0.5"}`}>
+            <span className="font-[family-name:var(--font-dm-sans)] font-medium uppercase tracking-[0.08em] text-accent text-[10px] mt-0.5">
               {block.category}
             </span>
           )}
         </div>
         <ArrowRight
           size={14}
-          className={`text-white/60 transition-opacity duration-200 mb-0.5 ${
-            isMobile ? "opacity-100" : "opacity-0 group-hover/text:opacity-100"
-          }`}
+          className="text-white/60 opacity-0 group-hover/text:opacity-100 transition-opacity duration-200 mb-0.5"
         />
       </button>
 
