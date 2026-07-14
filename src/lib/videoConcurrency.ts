@@ -6,14 +6,14 @@ interface ManagedVideo {
 }
 
 function getMaxConcurrent(): number {
-  if (typeof window === "undefined") return 6;
+  if (typeof window === "undefined") return 4;
   const isLowEnd =
     navigator.hardwareConcurrency <= 4 ||
     ["slow-2g", "2g", "3g"].includes(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (navigator as any).connection?.effectiveType ?? ""
     );
-  return isLowEnd ? 1 : 2;
+  return isLowEnd ? 2 : 4;
 }
 
 class VideoPlaybackPool {
@@ -25,9 +25,9 @@ class VideoPlaybackPool {
     this.max = getMaxConcurrent();
     if (typeof window !== "undefined") {
       const mql = window.matchMedia("(max-width: 768px)");
-      if (mql.matches) this.max = 1;
+      if (mql.matches) this.max = 2;
       mql.addEventListener("change", (e) => {
-        this.max = e.matches ? 1 : getMaxConcurrent();
+        this.max = e.matches ? 2 : getMaxConcurrent();
         this.schedule();
       });
     }
