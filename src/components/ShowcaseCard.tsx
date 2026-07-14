@@ -6,11 +6,7 @@ import { ArrowRight } from "lucide-react";
 import type { ShowcaseBlock } from "@/config/showcase";
 import { useMosaic } from "@/components/Mosaic/MosaicProvider";
 import { getProjectByBrand } from "@/config/projects";
-import {
-  registerVideo,
-  unregisterVideo,
-  setInView,
-} from "@/lib/videoConcurrency";
+import { pool } from "@/lib/videoConcurrency";
 
 const aspectRatios: Record<string, string> = {
   third: "4/3",
@@ -24,6 +20,7 @@ let idCounter = 0;
 export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
   const { openProject } = useMosaic();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoId = useRef(`video-${block.id}-${++idCounter}`);
   const [ready, setReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -40,32 +37,37 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     setSaveData(conn?.saveData ?? false);
   }, []);
 
-  // Register/unregister with concurrency manager
+  // Register/unregister with pool
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-
-    registerVideo(videoId.current, el);
-    return () => unregisterVideo(videoId.current);
+    pool.register(videoId.current, el);
+    return () => pool.unregister(videoId.current);
   }, []);
 
-  // IntersectionObserver — updates concurrency manager
+  // IntersectionObserver — updates pool visibility + distance
   useEffect(() => {
-    const el = videoRef.current?.parentElement;
+    const el = containerRef.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setInView(videoId.current, entry.isIntersecting);
+        pool.setInView(videoId.current, entry.isIntersecting);
+        // Calculate distance from viewport center
+        const rect = entry.boundingClientRect;
+        const viewCenter = window.innerHeight / 2;
+        const elCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(viewCenter - elCenter);
+        pool.updateDistance(videoId.current, distance);
       },
-      { threshold: 0.35 }
+      { threshold: 0.25, rootMargin: "100px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Lazy-load video src when first visible
+  // Lazy-load video src when near viewport
   useEffect(() => {
     const el = videoRef.current;
     if (!el || reducedMotion || saveData) return;
@@ -74,11 +76,12 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
       ([entry]) => {
         if (entry.isIntersecting && !el.src) {
           el.src = block.previewVideo.mp4;
+          el.preload = "metadata";
           setReady(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: "200px" }
     );
 
     observer.observe(el);
@@ -109,9 +112,11 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
     >
       {/* Poster image */}
       <div
+        ref={containerRef}
         className="relative w-full"
         style={{
           aspectRatio: isMobile ? "4/5" : (aspectRatios[block.width] || "16/9"),
+          contentVisibility: "auto",
         }}
       >
         <Image
