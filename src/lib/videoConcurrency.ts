@@ -1,5 +1,5 @@
 const MAX_MOBILE = 1;
-const MAX_DESKTOP = 3;
+const MAX_DESKTOP = 6;
 
 interface ManagedVideo {
   id: string;
@@ -11,7 +11,12 @@ const registry: ManagedVideo[] = [];
 let isMobile = false;
 
 if (typeof window !== "undefined") {
-  isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const mql = window.matchMedia("(max-width: 768px)");
+  isMobile = mql.matches;
+  mql.addEventListener("change", (e) => {
+    isMobile = e.matches;
+    schedulePlayback();
+  });
 }
 
 export function registerVideo(id: string, el: HTMLVideoElement) {
