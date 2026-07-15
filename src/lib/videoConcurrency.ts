@@ -16,18 +16,21 @@ function getMaxConcurrent(): number {
   return isLowEnd ? 2 : 6;
 }
 
+const ROTATION_INTERVAL = 4000;
+
 class VideoPlaybackPool {
   private registry: ManagedVideo[] = [];
   private max: number;
   private retryTimeout: ReturnType<typeof setTimeout> | null = null;
+  private rotationInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     this.max = getMaxConcurrent();
     if (typeof window !== "undefined") {
       const mql = window.matchMedia("(max-width: 768px)");
-      if (mql.matches) this.max = 2;
+      if (mql.matches) this.max = 3;
       mql.addEventListener("change", (e) => {
-        this.max = e.matches ? 2 : getMaxConcurrent();
+        this.max = e.matches ? 3 : getMaxConcurrent();
         this.schedule();
       });
     }
@@ -39,6 +42,7 @@ class VideoPlaybackPool {
 
   unregister(id: string) {
     this.registry = this.registry.filter((v) => v.id !== id);
+    if (this.registry.length === 0) this.stopRotation();
   }
 
   setInView(id: string, visible: boolean) {
@@ -77,13 +81,58 @@ class VideoPlaybackPool {
     playing.forEach((v) => {
       if (!v.inView && !v.el.paused) v.el.pause();
     });
+
+    // Start rotation if more videos available than limit
+    if (visible.length > this.max) {
+      this.startRotation();
+    } else {
+      this.stopRotation();
+    }
+  }
+
+  private startRotation() {
+    this.stopRotation();
+    this.rotationInterval = setInterval(() => {
+      const visible = this.registry
+        .filter((v) => v.inView && v.el.src)
+        .sort((a, b) => a.distance - b.distance);
+
+      if (visible.length <= this.max) return;
+
+      // Get currently playing
+      const currentlyPlaying = visible.filter((v) => !v.el.paused);
+      const playingIds = new Set(currentlyPlaying.map((v) => v.id));
+
+      // Pause all
+      currentlyPlaying.forEach((v) => v.el.pause());
+
+      // Pick next batch: rotate to videos that weren't playing
+      const notPlaying = visible.filter((v) => !playingIds.has(v.id));
+      const nextBatch = notPlaying.slice(0, this.max);
+
+      // If not enough non-playing, fill from playing (shouldn't happen)
+      if (nextBatch.length < this.max) {
+        const remaining = visible
+          .filter((v) => !nextBatch.includes(v))
+          .slice(0, this.max - nextBatch.length);
+        nextBatch.push(...remaining);
+      }
+
+      nextBatch.forEach((v) => this.playWithRetry(v));
+    }, ROTATION_INTERVAL);
+  }
+
+  private stopRotation() {
+    if (this.rotationInterval) {
+      clearInterval(this.rotationInterval);
+      this.rotationInterval = null;
+    }
   }
 
   private playWithRetry(video: ManagedVideo) {
     video.el
       .play()
       .catch(() => {
-        // Retry once after 500ms
         this.retryTimeout = setTimeout(() => {
           if (video.el.paused && video.inView && video.el.src) {
             video.el.play().catch(() => {});

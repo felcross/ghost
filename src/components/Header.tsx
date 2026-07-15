@@ -78,7 +78,7 @@ export default function Header() {
   }, [isMobileMenuOpen, closeMenu]);
 
   const navItems = [
-    { label: t("nav.contact"), href: "/#contact" },
+    { label: t("nav.contact"), href: "/contact" },
   ];
 
   return (
@@ -87,11 +87,7 @@ export default function Header() {
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
           isVitrineOpen
             ? "translate-y-[-100%]"
-            : isDarkPage
-              ? isScrolled
-                ? "bg-light-bg/5"
-                : "bg-light-bg/30"
-              : "bg-transparent"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">

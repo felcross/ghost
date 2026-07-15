@@ -45,7 +45,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#contact" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
+                <a href="/contact" className="text-text-on-light-muted text-sm hover:text-text-on-light transition-colors">
                   {t("footer.contact")}
                 </a>
               </li>

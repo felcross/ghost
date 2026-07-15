@@ -1,8 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import TrustedBy from "@/components/TrustedBy";
-import ContactForm from "@/components/ContactForm";
-import Footer from "@/components/Footer";
 import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
 export default function Home() {
@@ -11,10 +8,7 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
-        <TrustedBy />
-        <ContactForm />
       </main>
-      <Footer />
     </MosaicProvider>
   );
 }
