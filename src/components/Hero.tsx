@@ -140,13 +140,13 @@ export default function Hero() {
         </p>
         <a
           href="/work"
-          className="inline-block mt-3 text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-bold hover:text-white/60 transition-colors duration-300"
+          className="inline-block mt-3 text-white/30 text-[13px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-bold hover:text-white/60 transition-colors duration-300"
         >
           {t("nav.work")}
         </a>
         <a
           href="/services"
-          className="inline-block mt-3 ml-6 text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-bold hover:text-white/60 transition-colors duration-300"
+          className="inline-block mt-3 ml-6 text-white/30 text-[13px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-bold hover:text-white/60 transition-colors duration-300"
         >
           {t("nav.services")}
         </a>
