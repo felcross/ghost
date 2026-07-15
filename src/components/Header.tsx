@@ -94,7 +94,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a href="/" className="relative z-10">
-              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-text-on-light" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+              <span className={`font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight ${isDarkPage ? "text-white" : "text-text-on-light"}`} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
                 GHOST STUDIO
               </span>
             </a>

@@ -154,10 +154,39 @@ export default function Hero() {
 
       {/* Bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-6 md:px-10 lg:px-20">
-        <div className="flex items-center justify-between">
+        {/* Mobile: stacked layout */}
+        <div className="flex flex-col gap-2 md:hidden">
+          <div className="flex items-center gap-6">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+            >
+              LinkedIn
+            </a>
+          </div>
           <a
             href="/contact"
-            className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+            className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+          >
+            ghoststudio@theghosthub.com
+          </a>
+        </div>
+
+        {/* Desktop: side by side */}
+        <div className="hidden md:flex items-center justify-between">
+          <a
+            href="/contact"
+            className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
           >
             ghoststudio@theghosthub.com
           </a>
@@ -166,7 +195,7 @@ export default function Hero() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+              className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
             >
               Instagram
             </a>
@@ -174,7 +203,7 @@ export default function Hero() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/30 text-[9px] md:text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
+              className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
             >
               LinkedIn
             </a>
