@@ -95,7 +95,7 @@ export default function Header() {
             {/* Logo */}
             <a href="/" className="relative z-10">
               <img
-                src="/logo.svg"
+                src="/logo2.svg"
                 alt="Ghost Studio"
                 className="h-8 lg:h-10 w-auto brightness-0 invert"
               />
