@@ -97,8 +97,7 @@ export default function Header() {
               <img
                 src="/logo.svg"
                 alt="Ghost Studio"
-                className={`h-8 lg:h-10 w-auto ${isDarkPage ? "" : "brightness-0"}`}
-                style={{ filter: isDarkPage ? "none" : "brightness(0) invert(1)" }}
+                className="h-8 lg:h-10 w-auto brightness-0 invert"
               />
             </a>
 
