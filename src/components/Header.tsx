@@ -94,11 +94,9 @@ export default function Header() {
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a href="/" className="relative z-10">
-              <img
-                src="/logo2.svg"
-                alt="Ghost Studio"
-                className="h-8 lg:h-10 w-auto brightness-0 invert"
-              />
+              <span className="font-[family-name:var(--font-inter)] text-2xl lg:text-3xl font-black tracking-tight text-white" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+                GHOST STUDIO
+              </span>
             </a>
 
             {/* Desktop Navigation */}
