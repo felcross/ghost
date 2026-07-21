@@ -178,7 +178,7 @@ export default function Hero() {
             href="/contact"
             className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
           >
-            ghoststudio@theghosthub.com
+            studio@theghosthub.com
           </a>
         </div>
 
@@ -188,7 +188,7 @@ export default function Hero() {
             href="/contact"
             className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
           >
-            ghoststudio@theghosthub.com
+            studio@theghosthub.com
           </a>
           <div className="flex items-center gap-6">
             <a
