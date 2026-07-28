@@ -2,65 +2,19 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslation } from "@/i18n/I18nProvider";
 
-const services = [
-  {
-    number: "01",
-    title: "PRODUCTION",
-    tags: [
-      "Executive Production",
-      "Film Production",
-      "Commercials",
-      "Photography",
-      "Campaign Production",
-      "Content Production",
-    ],
-    description:
-      "From planning to final delivery, we manage every stage of production with precision and attention to detail. Our role is to create a seamless experience, allowing ideas to move confidently from concept to execution.",
-  },
-  {
-    number: "02",
-    title: "CREATIVE DIRECTION",
-    tags: [
-      "Concept Development",
-      "Brand Strategy",
-      "Visual Identity",
-      "Art Direction",
-      "Mood & Narrative",
-    ],
-    description:
-      "Every remarkable production begins long before the first frame. We help brands define the creative vision, shape compelling concepts and build visual languages that transform ideas into stories with clarity, purpose and lasting impact.",
-  },
-  {
-    number: "03",
-    title: "BRAND FILMS",
-    tags: [
-      "Commercial Films",
-      "Documentary",
-      "Hospitality",
-      "Fashion",
-      "Social Content",
-    ],
-    description:
-      "We create films that build emotional connections between brands and people. Every frame is crafted to communicate purpose, evoke emotion and leave a lasting impression beyond the screen.",
-  },
-  {
-    number: "04",
-    title: "PRODUCTION SERVICES",
-    tags: [
-      "Post-Production",
-      "Local Production",
-      "Location Scouting",
-      "Casting",
-      "Crew Management",
-      "Production Logistics",
-    ],
-    description:
-      "Brazil offers extraordinary creative possibilities, but successful productions depend on local expertise. We provide complete production support for international teams, coordinating locations, permits, logistics, crew and on-set operations to ensure every production runs efficiently from arrival to wrap.",
-  },
-];
+interface ServiceItem {
+  number: string;
+  title: string;
+  tags: string[];
+  description: string;
+}
 
 export default function Services() {
+  const { t, tArray } = useTranslation();
+  const services = tArray("services.items") as ServiceItem[];
+
   return (
     <section id="services" className="relative min-h-screen">
       {/* Background image */}
@@ -112,7 +66,7 @@ export default function Services() {
 
               {/* Subtitle */}
               <p className="font-[family-name:var(--font-inter)] text-xs tracking-[0.3em] uppercase text-white/40 mb-6 ml-1">
-                Services
+                {t("services.subtitle")}
               </p>
 
               {/* Tags as bullet list */}

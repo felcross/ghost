@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "@/i18n/I18nProvider";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { siteConfig } from "@/config/site";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -158,7 +159,7 @@ export default function Hero() {
         <div className="flex flex-col gap-2 md:hidden">
           <div className="flex items-center gap-6">
             <a
-              href="https://instagram.com"
+              href={siteConfig.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
@@ -166,7 +167,7 @@ export default function Hero() {
               Instagram
             </a>
             <a
-              href="https://linkedin.com"
+              href={siteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
@@ -178,7 +179,7 @@ export default function Hero() {
             href="/contact"
             className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
           >
-            studio@theghosthub.com
+            {siteConfig.email}
           </a>
         </div>
 
@@ -188,11 +189,11 @@ export default function Hero() {
             href="/contact"
             className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
           >
-            studio@theghosthub.com
+            {siteConfig.email}
           </a>
           <div className="flex items-center gap-6">
             <a
-              href="https://instagram.com"
+              href={siteConfig.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"
@@ -200,7 +201,7 @@ export default function Hero() {
               Instagram
             </a>
             <a
-              href="https://linkedin.com"
+              href={siteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/30 text-[10px] lg:text-[11px] tracking-[0.3em] uppercase font-light hover:text-white/60 transition-colors duration-300"

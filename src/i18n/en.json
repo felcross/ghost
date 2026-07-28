@@ -67,26 +67,31 @@
   "services": {
     "kicker": "● Services",
     "title": "WHAT WE DO",
+    "subtitle": "Services",
     "items": [
       {
+        "number": "01",
         "title": "PRODUCTION",
-        "tags": ["Cinema", "Events", "Content", "Audiovisual"],
-        "description": "Complete production of events, audiovisual content, and immersive experiences."
+        "tags": ["Executive Production", "Film Production", "Commercials", "Photography", "Campaign Production", "Content Production"],
+        "description": "From planning to final delivery, we manage every stage of production with precision and attention to detail. Our role is to create a seamless experience, allowing ideas to move confidently from concept to execution."
       },
       {
-        "title": "CREATION",
-        "tags": ["Scriptwriting", "Storytelling", "Concept", "Identity"],
-        "description": "Development of creative concepts and striking visual identities."
+        "number": "02",
+        "title": "CREATIVE DIRECTION",
+        "tags": ["Concept Development", "Brand Strategy", "Visual Identity", "Art Direction", "Mood & Narrative"],
+        "description": "Every remarkable production begins long before the first frame. We help brands define the creative vision, shape compelling concepts and build visual languages that transform ideas into stories with clarity, purpose and lasting impact."
       },
       {
-        "title": "DIRECTION",
-        "tags": ["Artistic", "Photography", "Video", "Campaign"],
-        "description": "Artistic and photographic direction for campaigns and special projects."
+        "number": "03",
+        "title": "BRAND FILMS",
+        "tags": ["Commercial Films", "Documentary", "Hospitality", "Fashion", "Social Content"],
+        "description": "We create films that build emotional connections between brands and people. Every frame is crafted to communicate purpose, evoke emotion and leave a lasting impression beyond the screen."
       },
       {
-        "title": "POST-PRODUCTION",
-        "tags": ["Editing", "Color Grading", "VFX", "Motion"],
-        "description": "Editing, color grading, and visual effects to elevate your project."
+        "number": "04",
+        "title": "PRODUCTION SERVICES",
+        "tags": ["Post-Production", "Local Production", "Location Scouting", "Casting", "Crew Management", "Production Logistics"],
+        "description": "Brazil offers extraordinary creative possibilities, but successful productions depend on local expertise. We provide complete production support for international teams, coordinating locations, permits, logistics, crew and on-set operations to ensure every production runs efficiently from arrival to wrap."
       }
     ]
   },

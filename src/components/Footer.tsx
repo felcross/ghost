@@ -2,6 +2,7 @@
 
 import { Camera, MessageCircle } from "lucide-react";
 import { useTranslation } from "@/i18n/I18nProvider";
+import { siteConfig } from "@/config/site";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -58,7 +59,7 @@ export default function Footer() {
             </h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full bg-overlay-light flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"
@@ -67,7 +68,7 @@ export default function Footer() {
                 <Camera size={18} className="text-text-on-light" />
               </a>
               <a
-                href="https://wa.me/5511999999999"
+                href={siteConfig.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full bg-overlay-light flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-300"

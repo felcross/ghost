@@ -1,13 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
 import { dictionaries, defaultLocale, getNestedValue, type Locale } from "./config";
 
 interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (key: string) => string;
-  tArray: (key: string) => unknown[];
+  tArray: <T = unknown>(key: string) => T[];
   tObject: (key: string) => Record<string, unknown>;
 }
 
@@ -48,23 +48,23 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = newLocale === "pt" ? "pt-BR" : newLocale;
   };
 
-  const t = (key: string): string => {
+  const t = useMemo(() => (key: string): string => {
     const value = getNestedValue(dictionaries[locale], key);
     if (typeof value === "string") return value;
     return key;
-  };
+  }, [locale]);
 
-  const tArray = (key: string): unknown[] => {
+  const tArray = useMemo(() => <T = unknown>(key: string): T[] => {
     const value = getNestedValue(dictionaries[locale], key);
-    if (Array.isArray(value)) return value;
+    if (Array.isArray(value)) return value as T[];
     return [];
-  };
+  }, [locale]);
 
-  const tObject = (key: string): Record<string, unknown> => {
+  const tObject = useMemo(() => (key: string): Record<string, unknown> => {
     const value = getNestedValue(dictionaries[locale], key);
     if (value && typeof value === "object" && !Array.isArray(value)) return value as Record<string, unknown>;
     return {};
-  };
+  }, [locale]);
 
   if (!mounted) {
     return (

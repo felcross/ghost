@@ -10,8 +10,7 @@ function getMaxConcurrent(): number {
   const isLowEnd =
     navigator.hardwareConcurrency <= 4 ||
     ["slow-2g", "2g", "3g"].includes(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (navigator as any).connection?.effectiveType ?? ""
+      (navigator as NavigatorWithConnection).connection?.effectiveType ?? ""
     );
   return isLowEnd ? 2 : 6;
 }

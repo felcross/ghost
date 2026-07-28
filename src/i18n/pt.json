@@ -65,28 +65,33 @@
     "titleB": "Bem-vindo ao Piso Invisível"
   },
   "services": {
-    "kicker": "● Services",
+    "kicker": "● Serviços",
     "title": "O QUE FAZEMOS",
+    "subtitle": "Serviços",
     "items": [
       {
+        "number": "01",
         "title": "PRODUÇÃO",
-        "tags": ["Cinema", "Eventos", "Conteúdo", "Audiovisual"],
-        "description": "Produção completa de eventos, conteúdo audiovisual e experiências imersivas."
+        "tags": ["Produção Executiva", "Produção de Filmes", "Comerciais", "Fotografia", "Produção de Campanhas", "Produção de Conteúdo"],
+        "description": "Do planejamento à entrega final, gerenciamos cada etapa da produção com precisão e atenção aos detalhes. Nosso papel é criar uma experiência fluida, permitindo que as ideias avancem com confiança do conceito à execução."
       },
       {
-        "title": "CRIAÇÃO",
-        "tags": ["Roteiro", "Storytelling", "Conceito", "Identidade"],
-        "description": "Desenvolvimento de conceitos criativos e identidades visuais marcantes."
+        "number": "02",
+        "title": "DIREÇÃO CRIATIVA",
+        "tags": ["Desenvolvimento de Conceito", "Estratégia de Marca", "Identidade Visual", "Direção de Arte", "Mood & Narrativa"],
+        "description": "Toda produção notável começa muito antes da primeira tomada. Ajudamos marcas a definir a visão criativa, moldar conceitos convincentes e construir linguagens visuais que transformam ideias em histórias com clareza, propósito e impacto duradouro."
       },
       {
-        "title": "DIREÇÃO",
-        "tags": ["Artística", "Fotografia", "Vídeo", "Campanha"],
-        "description": "Direção artística e fotográfica para campanhas e projetos especiais."
+        "number": "03",
+        "title": "FILMES DE MARCA",
+        "tags": ["Filmes Comerciais", "Documentário", "Hospitalidade", "Moda", "Conteúdo Social"],
+        "description": "Criamos filmes que constroem conexões emocionais entre marcas e pessoas. Cada quadro é elaborado para comunicar propósito, evocar emoção e deixar uma impressão duradoura além da tela."
       },
       {
-        "title": "PÓS-PRODUÇÃO",
-        "tags": ["Edição", "Color Grading", "VFX", "Motion"],
-        "description": "Edição, color grading e efeitos visuais para elevar o nível do seu projeto."
+        "number": "04",
+        "title": "SERVIÇOS DE PRODUÇÃO",
+        "tags": ["Pós-Produção", "Produção Local", "Busca de Locações", "Casting", "Gerenciamento de Equipe", "Logística de Produção"],
+        "description": "O Brasil oferece possibilidades criativas extraordinárias, mas produções bem-sucedidas dependem de expertise local. Fornecemos suporte completo de produção para equipes internacionais, coordenando locações, permissões, logística, equipe e operações no set para garantir que cada produção funcione com eficiência da chegada ao encerramento."
       }
     ]
   },

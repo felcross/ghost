@@ -25,8 +25,7 @@ export default function ShowcaseCard({ block }: { block: ShowcaseBlock }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
     setIsMobile(window.matchMedia("(max-width: 767px)").matches);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const conn = (navigator as any).connection as { saveData?: boolean } | undefined;
+    const conn = (navigator as NavigatorWithConnection).connection;
     setSaveData(conn?.saveData ?? false);
   }, []);
 

@@ -1,10 +1,3 @@
-export const servicesImages = [
-  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",
-  "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
-  "https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=800&q=80",
-  "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
-];
-
 export const testimonialAvatars = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
