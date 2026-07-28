@@ -11,8 +11,6 @@ export interface ShowcaseBlock {
   gridRow: string;
   poster: { src: string; alt: string };
   previewVideo: { mp4: string };
-  sprite?: string;
-  spriteFrameCount?: number;
   href: string;
 }
 
@@ -30,8 +28,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "Mercedes-Benz luxury vehicle in cinematic setting",
     },
     previewVideo: { mp4: "/data/mercedes.mp4" },
-    sprite: "/data/optimized/mercedes-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
   {
@@ -47,8 +43,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "Fila sportswear collection display",
     },
     previewVideo: { mp4: "/data/fila_new.mp4" },
-    sprite: "/data/optimized/fila-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
   {
@@ -64,8 +58,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "Original Penguin casual polo fashion",
     },
     previewVideo: { mp4: "/data/originalpenguin.mp4" },
-    sprite: "/data/optimized/originalpenguin-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
   {
@@ -81,8 +73,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "Ferracini brand experience production",
     },
     previewVideo: { mp4: "/data/ferracini.mp4" },
-    sprite: "/data/optimized/ferracini-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
   {
@@ -98,8 +88,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "LIVE! music festival concert production",
     },
     previewVideo: { mp4: "/data/live.mp4" },
-    sprite: "/data/optimized/live-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
   {
@@ -115,8 +103,6 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       alt: "Renner fashion retail campaign",
     },
     previewVideo: { mp4: "/data/renner.mp4" },
-    sprite: "/data/optimized/renner-sprite.webp",
-    spriteFrameCount: 12,
     href: "#",
   },
 ];
