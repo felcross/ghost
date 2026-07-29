@@ -13,8 +13,6 @@ export const projects: Project[] = [
     gallery: [
       { src: "/mercedes/optimized/mercedes-inspire-desktop.webp", alt: "Mercedes-Benz cinematic campaign", size: "lg" },
       { src: "/mercedes/optimized/mercedes-inspire-1-desktop.webp", alt: "Mercedes-Benz global campaign", size: "sm" },
-      { src: "/mercedes/optimized/mercedes-inspire-2-desktop.webp", alt: "Mercedes-Benz production", size: "md" },
-      { src: "/mercedes/optimized/mercedes-inspire-3-desktop.webp", alt: "Mercedes-Benz brand film", size: "wide" },
       { src: "/mercedes/optimized/site1-desktop.webp", alt: "Mercedes-Benz luxury setting", size: "tall" },
       { src: "/mercedes/optimized/site2-desktop.webp", alt: "Mercedes-Benz campaign setting", size: "md" },
     ],

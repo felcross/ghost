@@ -24,10 +24,10 @@ export const showcaseBlocks: ShowcaseBlock[] = [
     gridCol: "span 2",
     gridRow: "span 2",
     poster: {
-      src: "/mercedes/optimized/mercedes-poster.jpg",
+      src: "/mercedes/optimized/mercedes-inspire-desktop.webp",
       alt: "Mercedes-Benz luxury vehicle in cinematic setting",
     },
-    previewVideo: { mp4: "/data/mercedes.mp4" },
+    previewVideo: { mp4: "/data/mercedes2.mp4" },
     href: "#",
   },
   {
@@ -57,7 +57,7 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       src: "/original-penguin/optimized/originalpenguin-poster.jpg",
       alt: "Original Penguin casual polo fashion",
     },
-    previewVideo: { mp4: "/data/originalpenguin.mp4" },
+    previewVideo: { mp4: "/data/originalpenguin2.mp4" },
     href: "#",
   },
   {
@@ -72,7 +72,7 @@ export const showcaseBlocks: ShowcaseBlock[] = [
       src: "/ferracini/optimized/ferracini-poster.jpg",
       alt: "Ferracini brand experience production",
     },
-    previewVideo: { mp4: "/data/ferracini.mp4" },
+    previewVideo: { mp4: "/data/ferracini2.mp4" },
     href: "#",
   },
   {
