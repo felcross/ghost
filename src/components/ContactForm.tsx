@@ -5,21 +5,54 @@ import { motion } from "framer-motion";
 import { Send, CheckCircle } from "lucide-react";
 import { useTranslation } from "@/i18n/I18nProvider";
 
+const WEB3FORMS_ACCESS_KEY = "a408a8e0-5e02-4b05-bd91-b5e9f4e6661d";
+
 export default function ContactForm() {
   const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form submitted:", formData);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 4000);
+    setSending(true);
+    setError(false);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New contact form submission from ${formData.name}`,
+          from_name: formData.name,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Failed to send");
+      }
+
+      // only clear the form and show success after the email actually sent
+      setFormData({ name: "", email: "", message: "" });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err) {
+      console.error("Contact form submit error:", err);
+      setError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (
@@ -66,7 +99,8 @@ export default function ContactForm() {
                   onChange={handleChange}
                   placeholder={t("contact.namePlaceholder")}
                   required
-                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors"
+                  disabled={sending}
+                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -85,7 +119,8 @@ export default function ContactForm() {
                   onChange={handleChange}
                   placeholder={t("contact.emailPlaceholder")}
                   required
-                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors"
+                  disabled={sending}
+                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -104,15 +139,23 @@ export default function ContactForm() {
                   placeholder={t("contact.messagePlaceholder")}
                   required
                   rows={5}
-                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors resize-none"
+                  disabled={sending}
+                  className="w-full bg-surface-dark border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-white/30 focus:border-accent focus:outline-none transition-colors resize-none disabled:opacity-50"
                 />
               </div>
 
+              {error && (
+                <p role="alert" className="text-red-400 text-sm">
+                  {t("contact.error") ?? "Something went wrong. Please try again."}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 bg-accent text-white px-8 py-3.5 text-sm font-bold tracking-wider uppercase hover:bg-accent/90 transition-colors"
+                disabled={sending}
+                className="inline-flex items-center gap-2 bg-accent text-white px-8 py-3.5 text-sm font-bold tracking-wider uppercase hover:bg-accent/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {t("contact.submit")}
+                {sending ? "..." : t("contact.submit")}
                 <Send size={16} />
               </button>
             </form>

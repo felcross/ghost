@@ -6,6 +6,15 @@ const SIZE_CYCLE: Array<"lg" | "sm" | "md" | "wide" | "tall"> = [
 
 export const projects: Project[] = [
   {
+    slug: "ferracini",
+    brand: "FERRACINI",
+    category: "EXECUTIVE PRODUCTION & CREATIVE DIRECTION",
+    cover: "/ferracini/optimized/ferracini-poster.jpg",
+    gallery: [
+      { src: "/ferracini/optimized/ferracini01-desktop.webp", alt: "Ferracini brand experience", size: "lg" },
+    ],
+  },
+  {
     slug: "mercedes",
     brand: "MERCEDES",
     category: "GLOBAL CAMPAIGN",
@@ -15,6 +24,9 @@ export const projects: Project[] = [
       { src: "/mercedes/optimized/mercedes-inspire-1-desktop.webp", alt: "Mercedes-Benz global campaign", size: "sm" },
       { src: "/mercedes/optimized/site1-desktop.webp", alt: "Mercedes-Benz luxury setting", size: "tall" },
       { src: "/mercedes/optimized/site2-desktop.webp", alt: "Mercedes-Benz campaign setting", size: "md" },
+      { src: "/mercedes/optimized/mercedes140-desktop.webp", alt: "Mercedes-Benz 140 years campaign", size: "wide" },
+      { src: "/mercedes/optimized/mercedes140-2-desktop.webp", alt: "Mercedes-Benz 140 years campaign shot 2", size: "sm" },
+      { src: "/mercedes/optimized/mercedes140-3-desktop.webp", alt: "Mercedes-Benz 140 years campaign shot 3", size: "md" },
     ],
   },
   {
@@ -25,6 +37,8 @@ export const projects: Project[] = [
     gallery: [
       { src: "/fila/optimized/fila-rcm04879-desktop.webp", alt: "Fila Italy campaign", size: "lg" },
       { src: "/fila/optimized/fila-rcm00738-desktop.webp", alt: "Fila sportswear collection", size: "md" },
+      { src: "/fila/optimized/fila02-desktop.webp", alt: "Fila brand photoshoot", size: "wide" },
+      { src: "/fila/optimized/fila03-desktop.webp", alt: "Fila product detail", size: "sm" },
     ],
   },
   {
@@ -36,6 +50,7 @@ export const projects: Project[] = [
       { src: "/original-penguin/optimized/0526IKPG_2574-desktop.webp", alt: "Original Penguin collection launch", size: "lg" },
       { src: "/original-penguin/optimized/0526IKPG_2571-desktop.webp", alt: "Original Penguin fashion", size: "sm" },
       { src: "/original-penguin/optimized/0526IKPG_1725-desktop.webp", alt: "Original Penguin brand experience", size: "md" },
+      { src: "/original-penguin/optimized/pinguinfoto2-desktop.webp", alt: "Original Penguin brand photoshoot", size: "wide" },
     ],
   },
   {

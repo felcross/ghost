@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
-import WhyWorkWithUs from "@/components/WhyWorkWithUs";
+import InvisibleFloor from "@/components/Invisible Floor";
 import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export default function AboutPage() {
     <MosaicProvider>
       <Header />
       <main id="main-content">
-        <WhyWorkWithUs />
+        <InvisibleFloor />
       </main>
     </MosaicProvider>
   );

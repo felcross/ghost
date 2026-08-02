@@ -64,6 +64,26 @@ public/new-balance/*
 public/original-penguin/*
 !public/original-penguin/optimized/
 
+public/ferracini/*
+!public/ferracini/optimized/
+
+public/invisible-floor/*
+!public/invisible-floor/optimized/
+
+public/novasfotos/*
+
 # Other raw/backup folders
 public/Por Que Nos Escolher/
 public/data copy/
+
+# Non-production components (not imported in live render tree)
+# — WhyWorkWithUs.tsx: original component, replaced by InvisibleFloor.tsx
+src/components/WhyWorkWithUs.tsx
+# — WhyWorkWithUs copy.tsx: identical backup of WhyWorkWithUs.tsx, replaced by InvisibleFloor.tsx
+src/components/WhyWorkWithUs copy.tsx
+# — TrustedBy.tsx: marquee logo component removed from home page, no imports found
+src/components/TrustedBy.tsx
+# — VideoShowcase.tsx: video section component, no imports found in any page
+src/components/VideoShowcase.tsx
+# — BrazilShowcase.tsx: video section component, no imports found in any page
+src/components/BrazilShowcase.tsx

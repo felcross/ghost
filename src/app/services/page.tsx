@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Services from "@/components/Services";
+import InvisibleFloor from "@/components/Invisible Floor";
 import { MosaicProvider } from "@/components/Mosaic/MosaicProvider";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function ServicesPage() {
       <Header />
       <main id="main-content">
         <Services />
+        <InvisibleFloor />
       </main>
     </MosaicProvider>
   );

@@ -13,6 +13,11 @@ const bentoImages = [
   { id: "0W6A6547", alt: "Team collaboration" },
   { id: "0W6A6597", alt: "Equipment preparation" },
   { id: "0W6A9723_vBsDjR", alt: "Final production" },
+  { id: "0W6A8656_bMXuHR", alt: "Ghost Studio brand moment" },
+  { id: "0W6A9356_bMXuHR", alt: "Ghost Studio creative process" },
+  { id: "IMG_6189_bMXuHR", alt: "Ghost Studio behind the scenes" },
+  { id: "IMG_6206_bMXuHR", alt: "Ghost Studio production detail" },
+  { id: "IMG_6210_bMXuHR", alt: "Ghost Studio team at work" },
 ];
 
 // Bento Grid layout: CSS Grid with explicit spans
@@ -29,6 +34,11 @@ const gridSpans = [
   { col: "span 1", row: "span 1" },   // 7
   { col: "span 1", row: "span 2" },   // 8: tall
   { col: "span 1", row: "span 1" },   // 9
+  { col: "span 2", row: "span 1" },   // 10: wide (new)
+  { col: "span 1", row: "span 1" },   // 11 (new)
+  { col: "span 1", row: "span 1" },   // 12 (new)
+  { col: "span 1", row: "span 1" },   // 13 (new)
+  { col: "span 1", row: "span 1" },   // 14 (new)
 ];
 
 export default function BentoGrid() {

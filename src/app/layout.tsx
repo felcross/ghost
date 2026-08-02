@@ -28,6 +28,9 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Ghost Studio | Produção & Criação",
   description: "Estúdio de produção e criação. Transformamos ideias em experiências.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

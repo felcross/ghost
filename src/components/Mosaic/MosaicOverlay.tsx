@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Project } from "@/types/project";
 import { MosaicGrid } from "./MosaicGrid";
@@ -38,7 +38,9 @@ interface MosaicOverlayProps {
 
 export function MosaicOverlay({ project, onClose }: MosaicOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const gridContainerRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const [gridScale, setGridScale] = useState(1);
 
   // Body scroll lock + background inert
   useEffect(() => {
@@ -79,6 +81,34 @@ export function MosaicOverlay({ project, onClose }: MosaicOverlayProps) {
     } else {
       previousFocusRef.current?.focus();
     }
+  }, [project]);
+
+  // Scale-to-fit: constrain grid to viewport, scale down if content overflows
+  useEffect(() => {
+    if (!project) return;
+
+    const fitToViewport = () => {
+      const container = gridContainerRef.current;
+      if (!container) return;
+      const grid = container.querySelector<HTMLElement>(".mosaicGrid");
+      if (!grid) return;
+
+      const vh = window.innerHeight;
+      const gridScrollH = grid.scrollHeight;
+      if (gridScrollH > vh) {
+        setGridScale(Math.min(1, vh / gridScrollH));
+      } else {
+        setGridScale(1);
+      }
+    };
+
+    // Run after images may have laid out
+    const timer = setTimeout(fitToViewport, 100);
+    window.addEventListener("resize", fitToViewport);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", fitToViewport);
+    };
   }, [project]);
 
   // Keyboard: Escape + focus trap
@@ -128,12 +158,21 @@ export function MosaicOverlay({ project, onClose }: MosaicOverlayProps) {
           transition={{ duration: 0.35 }}
         >
           <motion.div
-            className="w-full h-full overflow-hidden"
+            ref={gridContainerRef}
+            className="w-full h-full overflow-hidden flex items-center justify-center"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            <motion.div variants={tileVariants}>
+            <motion.div
+              variants={tileVariants}
+              style={{
+                width: "100%",
+                height: "100%",
+                transform: gridScale < 1 ? `scale(${gridScale})` : undefined,
+                transformOrigin: "top center",
+              }}
+            >
               <MosaicGrid images={project.gallery} />
             </motion.div>
           </motion.div>

@@ -41,6 +41,9 @@ export default function Services() {
       {/* Content */}
       <div className="relative z-10 py-32 lg:py-40">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+      
+
           {services.map((service, index) => (
             <motion.div
               key={service.number}
